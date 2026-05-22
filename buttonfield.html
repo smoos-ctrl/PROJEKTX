@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+body { background-color:lime; }
+
+.mein-button {
+    /* 1. Wichtig für die Stabilität */
+    display: inline-block;
+    box-sizing:border-box; /* Verhindert, dass Rahmen den Button vergrößern */
+
+    */ 2. Innenabstand (Sorgt für die Größe */)
+    padding: 12 px 24 px; /+ Oben/unten | Links/rechts */
+
+    /+3. Text-Design */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* Entfernt Unterstreichung bei Link-Buttons */
+
+    /* $. Optik */
+    background-color: #007bff; /* Blau */
+    color:white;
+    border:none; /*Entfernt den hässlichen Standard-Rahmen */
+    border-radius: 4px; /* Leicht abgerundete Ecken */
+
+    /* 5. Bedienung */
+    cursor: pointer; /* Zeigt die Hand beim Drüberfahren */
+
+    summary {
+      list-style: none;
+    }
+    summary::-webkit-details-marker {
+      display: none; /* Für ältere/andere Browser */
+    }
+   
+
+    .anzeigen {
+      display: block;
+    }
+}
+ .versteckte-liste {
+      display: none;
+      position: absolute;
+      z-index: 100;
+    }
+</style>
+<body>
+  <main>
+    <li><a href="index.html">Main</a></li>
+    <h4>Buttonfield for ever</h4>
+        <h1>I</h1> 
+
+        <input> type="button" value="Klick mich" class="mein-button" </input>
+
+         
+        
+          <button> id="mein-button" onclick="document.getElementById('nav-liste').classList.toggle('anzeigen')">Menu öffnen</button>
+          <form>
+            <select id="nav-liste" class="versteckte-liste">onchange="window.location.href=this.value">
+                <option value="">-- Bitte wählen --</option>
+                <option value="buttonfield.html">-- Buttonfield --</option>
+                <option value="leistungen.html">-- Leistungen --</option>
+                <option value="Kontakt.html">-- Kontakt --</option>
+                <option value="impressum.html">-- Impressum --</option>
+
+
+
+            </select>
+          </form>
+     
+    
+  </main>
+  <footer>
+        <a href="impressum.html">impressum</a>
+  </footer>  
+</body>
+</html>

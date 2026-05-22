@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1">
+    <title>Seitentitel - Website</title>
+    <meta name="description" content="Kurze Beschriebung der Seite.">
+    
+</head>
+<style>
+body { background-color:bisque; }
+h1 {
+    color:green;
+    text-align:center;
+    text-decoration: underline;
+}
+
+li {
+    color: red;
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+</style>
+<body>
+    <header>
+        <a href="/">Startseite</a>
+        <button type="button">Menue oeffnen</button>
+        <nav aria-label="Hauptnavigation">...navi
+            <ul>
+                <li><a href="buttonfield.html">buttonfield</a></li>
+                <li><a href="leistungen.html">Leistungen</a></li>
+                <li><a href="Kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form action="" method="get">
+            <select name="ziel" onchange="window.location.href=this.value">
+                <option value="">-- Bitte wählen --</option>
+                <option value="buttonfield.html">-- Buttonfield --</option>
+                <option value="leistungen.html">-- Leistungen --</option>
+                <option value="Kontakt.html">-- Kontakt --</option>
+                <option value="impressum.html">-- Impressum --</option>
+
+
+
+            </select>
+        </form>
+        <h1>Hauptueberschrift</h1>
+        <figure>
+            <img src="bildki.webp"
+                          alt = "Ich teilte der KI mit sie solle mir ein Bild für meine erste Homepage machen , nur zu Versuchszwecken. das Kam dabei raus :D "
+                          width="1200" 
+                          height="800" 
+                          loading="lazy"
+                          style="max-width: 100%; height: auto;">
+            <figcaption>Homepage frontend</figcaption>
+        </figure>
+       
+        <p>Inhalt der Seite</p>
+    </main>
+    <footer>
+        <a href="impressum.html">impressum</a>
+    </footer>
+</body>
+
+</html>

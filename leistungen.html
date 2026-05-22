@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  body { background-color:lightblue; }
+
+  #listbox {
+    display: none; /* erst unsichtbar */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    margin-top: 10px;
+}
+
+</style>
+<body>
+  <main>
+    <li><a href="index.html">Main</a></li>
+        <h1>Leistungen</h1> 
+
+        <button id="menuButton">Menü öffnen</button>
+
+        <div> id="listbox"</div>
+          <ul> 
+            <li> value="">-- Bitte wählen --</li>
+            <li> value="buttonfield.html">-- Buttonfield --</li>
+            <li> value="leistungen.html">-- Leistungen --</li>
+            <li> value="Kontakt.html">-- Kontakt --</li>
+            <li> value="impressum.html">-- Impressum --</li>
+          </ul>
+        </div>
+  <main>
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const listbox = document.getElementById("listbox");
+
+    menuButton.addEventListener("click",() => {
+      if(listbox.style.display === "none") {
+        listbox.style.display = "block";
+      }
+        else {
+          listbox.style.display = "none";
+        }
+      }  
+      
+
+    });
+  </script>
+  <footer>
+        <a href="impressum.html">impressum</a>
+  </footer>  
+</body>
+</html>
