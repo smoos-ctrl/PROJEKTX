@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,23 +15,36 @@
     padding: 10px;
     width: 200px;
     margin-top: 10px;
-}
+  } 
+   /* Entfernt die blaue Farbe und den Unterstrich der Links im Menü */
+  #listbox ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block; /* Macht die gesamte Zeile anklickbar */
+    padding: 5px 0;
+  }
 
+  /* Ändert die Farbe, wenn man mit der Maus darüber fährt */
+  #listbox ul li a:hover {
+    color: #0066cc;
+    font-weight: bold;
+  }
 </style>
 <body>
   <main>
     <li><a href="index.html">Main</a></li>
         <h1>Leistungen</h1> 
 
-        <button id="menuButton">Menü öffnen</button>
+        <button id="menuButton">Menü öffnen/schliessen</button>
 
-        <div> id="listbox"</div>
+        <div id="listbox">
           <ul> 
-            <li> value="">-- Bitte wählen --</li>
-            <li> value="buttonfield.html">-- Buttonfield --</li>
-            <li> value="leistungen.html">-- Leistungen --</li>
-            <li> value="Kontakt.html">-- Kontakt --</li>
-            <li> value="impressum.html">-- Impressum --</li>
+            <li><a href="">-- Bitte wählen --</a></li>
+            <li><a href="index.html">-- Startseite --</a></li>
+            <li><a href="buttonfield.html">-- Buttonfield --</a></li>
+            <li><a href="leistungen.html">-- Leistungen --</a></li>
+            <li><a href="Kontakt.html">-- Kontakt --</a></li>
+            <li><a href="impressum.html">-- Impressum --</a></li>
           </ul>
         </div>
   <main>
@@ -49,8 +62,41 @@
       }  
       
 
-    });
+    );
   </script>
+
+ <!-- Die Buttons zum Steuern (hier fängt der funtionierende code an)--> 
+<button onclick="umschalten('meineListe')">Liste zeigen/verstecken</button>
+<button onclick="umschalten('meineListbox')">Listbox zeigen/verstecken</button>
+
+<br><br>
+
+<!-- Die Elemente, die ein- und ausgeblendet werden sollen -->
+<ul id="meineListe">
+    <li>Erster Punkt</li>
+    <li>Zweiter Punkt</li>
+</ul>
+
+<select id="meineListbox">
+    <option>Option 1</option>
+    <option>Option 2</option>
+</select>
+
+<script>
+function umschalten(elementId) {
+    // 1. Das gewünschte Element anhand der ID finden
+    const element = document.getElementById(elementId);
+    
+    // 2. Prüfen, ob es gerade unsichtbar ist
+    if (element.style.display === 'none') {
+        // Wenn unsichtbar: wieder anzeigen
+        element.style.display = '';
+    } else {
+        // Wenn sichtbar: unsichtbar machen
+        element.style.display = 'none';
+    }
+}
+</script>
   <footer>
         <a href="impressum.html">impressum</a>
   </footer>  

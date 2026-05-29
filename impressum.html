@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,15 +10,67 @@ body { background-color:yellow; }
 </style>
 <body>
   <main>
+    <button onclick="ganzeSeiteVorlesen()">Ganze Seite vorlesen</button>
+
+
     <li><a href="index.html">Main</a></li>
         <h1>Impressum</h1> 
-
+        <h3>Hier entsteht gerade eine Webseite , noch im Aufbau befindlich ,JavaScript muss noch erlernt werden 
+          eigentlich wollte ich hier gerade die `` text einpflegung von JAvaScript testen aber in HTML geht das ja auch so
+        </h3>
   <main>
+    <aside>
+    <h2>Related</h2>
+    <div id="ausgabe" style="white-space: pre-line;"></div>
+    <script>const message = `Hier entsteht (k)ein mehrzeiliger Text mit Javascript
+    welcher eventuell wichtige Hinweise über den Standort
+    oder CEO liefert.
+      
+    `
+    console.log(message)
+    document.write(message)
+    document.getElementById('ausgabe').innerText = message;</script>
+
+    <!-- aside content in here -->
+  </aside>
   <footer>
         <h4>Wir danken recht herzlich für Ihren Besuch auf unserer Seite. <br>
             Wir hoffen es hat Ihnen gefallen und wünschen noch einen angenehmen Tag. <br>
 
             Auf Wiedersehen.</h4>
+    <script>
+      function ganzeSeiteVorlesen() {
+        window.speechSynthesis.cancel();
+        // Greift sich den gesamten sichtbaren Text der Seite
+        const text = document.body.innerText;
+    
+        const sprachAusgabe = new SpeechSynthesisUtterance(text);
+        sprachAusgabe.lang = "de-DE";
+
+            // --- DIAGNOSE-LOGIK ---
+        // Falls ein Fehler auftritt, gibt uns das Aufschluss
+        sprachAusgabe.onerror = function(event) {
+          console.error("Sprachausgabe-Fehler detektiert: ", event.error);
+          alert("Der Browser verweigert das Vorlesen. Grund: " + event.error);
+        };
+
+        // Falls es startet, wissen wir, dass der Code läuft
+        sprachAusgabe.onstart = function() {
+          console.log("Sprachausgabe erfolgreich gestartet.");
+        };
+        // -----------------------
+
+        // 4. Stimmen-Check erzwingen (Weckt die Browser-Engine auf)
+        window.speechSynthesis.getVoices();
+
+        // 5. Starten
+    
+    
+        window.speechSynthesis.speak(sprachAusgabe);
+
+
+      }
+    </script>
   </footer>  
 </body>
 </html>

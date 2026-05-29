@@ -2,12 +2,10 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Seitentitel - Website</title>
-    <meta name="description" content="Kurze Beschriebung der Seite.">
-    
-</head>
-<style>
+    <meta name="description" content="Kurze Beschreibung der Seite.">
+    <style>
 body { background-color:bisque; }
 h1 {
     color:green;
@@ -17,14 +15,34 @@ h1 {
 
 li {
     color: red;
-    margin-bottom: 15px;
-    margin-left: 20px;
+    margin-bottom: 1.5em;
+    margin-left: 2em;
+}
+
+    /* Das Formular ist anfangs unsichtbar */
+    #listboxmain {
+      display: none; 
+      margin-top: 1em;
+    }
+    #listboxmain select {
+    background-color: #fff8dc; /* Ein heller, passender Ton zu bisque */
+    color: green;              /* Passt zu deiner grünen Überschrift */
+    border: 0.2em solid green;   /* Ein sauberer Rahmen */
+    padding: 0.8em 1.2em;
+    font-size: 1.6em;
+    border-radius: 0.5em;
+    cursor: pointer;
 }
 </style>
+</head>
+
 <body>
     <header>
+        <button onclick="ganzeSeiteVorlesen()">Ganze Seite vorlesen</button>
+
+
         <a href="/">Startseite</a>
-        <button type="button">Menue oeffnen</button>
+        <button id="menuButtonMain">Menue oeffnen/schliessen</button>
         <nav aria-label="Hauptnavigation">...navi
             <ul>
                 <li><a href="buttonfield.html">buttonfield</a></li>
@@ -34,7 +52,7 @@ li {
         </nav>
     </header>
     <main>
-        <form action="" method="get">
+        <form action="" method="get" id="listboxmain">
             <select name="ziel" onchange="window.location.href=this.value">
                 <option value="">-- Bitte wählen --</option>
                 <option value="buttonfield.html">-- Buttonfield --</option>
@@ -58,6 +76,51 @@ li {
         </figure>
        
         <p>Inhalt der Seite</p>
+
+        <script>
+          const menuButtonMain = document.getElementById("menuButtonMain");
+          const listboxmain = document.getElementById("listboxmain");
+
+          menuButtonMain.addEventListener("click",() => {
+            if(listboxmain.style.display === "" ||listboxmain.style.display === "none") {
+              listboxmain.style.display = "block";
+            }
+            else {
+              listboxmain.style.display = "none";
+            }
+           }  
+      
+
+          );
+         
+          function ganzeSeiteVorlesen() {
+            window.speechSynthesis.cancel();
+            // Greift sich den gesamten sichtbaren Text der Seite
+            const text = document.body.innerText;
+    
+            const sprachAusgabe = new SpeechSynthesisUtterance(text);
+            sprachAusgabe.lang = "de-DE";
+                // --- DIAGNOSE-LOGIK ---
+            // Falls ein Fehler auftritt, gibt uns das Aufschluss
+            sprachAusgabe.onerror = function(event) {
+            console.error("Sprachausgabe-Fehler detektiert: ", event.error);
+            alert("Der Browser verweigert das Vorlesen. Grund: " + event.error);
+            };
+
+            // Falls es startet, wissen wir, dass der Code läuft
+            sprachAusgabe.onstart = function() {
+            console.log("Sprachausgabe erfolgreich gestartet.");
+            };
+            // -----------------------
+
+            // 4. Stimmen-Check erzwingen (Weckt die Browser-Engine auf)
+            window.speechSynthesis.getVoices();
+
+            // 5. Starten
+            window.speechSynthesis.speak(sprachAusgabe);
+          }
+
+        </script>
     </main>
     <footer>
         <a href="impressum.html">impressum</a>

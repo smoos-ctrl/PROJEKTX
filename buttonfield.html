@@ -1,82 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
+
+
+
 <style>
-body { background-color:lime; }
+  /* 1. DAS GRID-HAUPTLAYOUT: Erstellt ein sauberes Raster */
+  .layout-container-buttonfield {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Zwei gleich breite Spalten */
+      gap: 20px;                      /* Abstand zwischen den Elementen */
+      max-width: 800px;               /* Maximale Breite des Formulars */
+      background-color: rgba(255, 255, 255, 0.9); /* Weißer, leicht transparenter Hintergrund */
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin: 20px auto;             /* Zentriert das gesamte Formular auf der Seite */
+    }
+                /* Spalten-Zuweisung für die Grid-Elemente */
+  .links {
+    grid-column: 1; /* Erzwingt die Platzierung in der linken Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+  .rechts {
+    grid-column: 2; /* Erzwingt die Platzierung in der rechten Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+
+body { background-color:lime; 
+       font-family: sans-serif;
+}
 
 .mein-button {
     /* 1. Wichtig für die Stabilität */
     display: inline-block;
     box-sizing:border-box; /* Verhindert, dass Rahmen den Button vergrößern */
-
-    */ 2. Innenabstand (Sorgt für die Größe */)
-    padding: 12 px 24 px; /+ Oben/unten | Links/rechts */
-
-    /+3. Text-Design */
+    /* 2. Innenabstand (Sorgt für die Größe */
+    padding: 12px 24px; /* Oben/unten | Links/rechts */
+    /*3. Text-Design */
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     text-decoration: none; /* Entfernt Unterstreichung bei Link-Buttons */
-
     /* $. Optik */
     background-color: #007bff; /* Blau */
     color:white;
     border:none; /*Entfernt den hässlichen Standard-Rahmen */
     border-radius: 4px; /* Leicht abgerundete Ecken */
-
     /* 5. Bedienung */
     cursor: pointer; /* Zeigt die Hand beim Drüberfahren */
-
+    }
     summary {
       list-style: none;
     }
     summary::-webkit-details-marker {
       display: none; /* Für ältere/andere Browser */
     }
-   
-
-    .anzeigen {
-      display: block;
+  /* Menü-Steuerung */
+  .versteckte-liste {
+    display: none; /* Standardmäßig unsichtbar 
+    position: absolute;*/
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
     }
-}
- .versteckte-liste {
-      display: none;
-      position: absolute;
-      z-index: 100;
+   /* Klasse wird per Klick hinzugefügt */
+  #nav-liste.anzeigen, #grade.anzeigen {
+    display: block; 
     }
+/*
+  #grade {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    gap: 2em;
+    position: relative;
+    top: 2em;
+    left: 10em;
+    width: 10em;
+    /* FEHLER BEHOBEN: Alpha-Wert bei rgba() darf maximal 1 sein 
+    box-shadow: 0.5em 0.3em 0.2em 0.1em rgba(0,0,0,0.5); 
+    border-radius: 0.2em;
+  }
+*/
 </style>
+</head>
+<br>
 <body>
-  <main>
+    <h4 style="text-align: center; margin-bottom: 20px;" >Buttonfield for ever</h4>
+    
     <li><a href="index.html">Main</a></li>
-    <h4>Buttonfield for ever</h4>
-        <h1>I</h1> 
 
-        <input> type="button" value="Klick mich" class="mein-button" </input>
+  <main>
+  <div class="layout-container-buttonfield">
+    <h1 style="text-align: center; margin-bottom: 20px;">Iiiiiihhh bims</h1> 
 
-         
-        
-          <button> id="mein-button" onclick="document.getElementById('nav-liste').classList.toggle('anzeigen')">Menu öffnen</button>
+    <div class="links">
+        <input type="text" id="eingabename"></input>
+        <label>  Bitte Geben Sie Ihren Namen ein </label>
+          <button id="ein-button" onclick="document.getElementById('nav-liste').classList.toggle('anzeigen')">Menu öffnen/schliessen</button>
           <form>
-            <select id="nav-liste" class="versteckte-liste">onchange="window.location.href=this.value">
+            <select id="nav-liste" class="versteckte-liste" onchange="window.location.href=this.value">
                 <option value="">-- Bitte wählen --</option>
                 <option value="buttonfield.html">-- Buttonfield --</option>
                 <option value="leistungen.html">-- Leistungen --</option>
                 <option value="Kontakt.html">-- Kontakt --</option>
                 <option value="impressum.html">-- Impressum --</option>
-
-
-
             </select>
           </form>
-     
-    
+    </div>
+    <div class="rechts">
+      <button id="zweibutton" class="mein-button" onclick="document.getElementById('grade').classList.toggle('anzeigen')">hier bin ich</button>
+      <select id="grade" class="versteckte-liste" ></select>
+    </div>
+  </div>
   </main>
   <footer>
-        <a href="impressum.html">impressum</a>
+      <a href="impressum.html">impressum</a>
   </footer>  
+  <script>
+    const selectElement = document.getElementById('grade');
+    const options1 = ['Sehr gut','Gut','Befriedigend','Ausreichend','Magelhaft','Ungenügend','out of order'];
+    for(let i=0; i<options1.length; i++) {
+      const optionElement =document.createElement('option');
+    // OPTIONAL ABER EMPFOHLEN: Jeder Option einen Wert (value) zuweisen
+      optionElement.value = options1[i];
+
+      const optionText =document.createTextNode(options1[i]);
+
+      optionElement.appendChild(optionText);
+
+      selectElement.appendChild(optionElement);
+    }   
+  </script>
 </body>
 </html>
