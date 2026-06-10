@@ -5,65 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Seitentitel - Website</title>
     <meta name="description" content="Kurze Beschreibung der Seite.">
-    <style>
-body { background-color:bisque; }
-h1 {
-    color:green;
-    text-align:center;
-    text-decoration: underline;
-}
-
-li {
-    color: red;
-    margin-bottom: 1.5em;
-    margin-left: 2em;
-}
-
-    /* Das Formular ist anfangs unsichtbar */
-    #listboxmain {
-      display: none; 
-      margin-top: 1em;
-    }
-    #listboxmain select {
-    background-color: #fff8dc; /* Ein heller, passender Ton zu bisque */
-    color: green;              /* Passt zu deiner grünen Überschrift */
-    border: 0.2em solid green;   /* Ein sauberer Rahmen */
-    padding: 0.8em 1.2em;
-    font-size: 1.6em;
-    border-radius: 0.5em;
-    cursor: pointer;
-}
-</style>
+    <link rel="stylesheet" href="style.css">    <!--style.css einbinden wenn es erstellt wurde-->
 </head>
-
 <body>
     <header>
         <button onclick="ganzeSeiteVorlesen()">Ganze Seite vorlesen</button>
 
 
-        <a href="/">Startseite</a>
+        <li><a href="home">Startseite</a></li>
         <button id="menuButtonMain">Menue oeffnen/schliessen</button>
         <nav aria-label="Hauptnavigation">...navi
             <ul>
-                <li><a href="buttonfield.html">buttonfield</a></li>
-                <li><a href="leistungen.html">Leistungen</a></li>
-                <li><a href="Kontakt.html">Kontakt</a></li>
+                <li><a href="buttonfield">Buttonfield</a></li> 
+                <li><a href="leistungen">Leistungen</a></li> 
+                <li><a href="kontakt">Kontakt</a></li>
+                <li><a href="spielstart">Spielstart</a></li>
+                <!--<li><a href="backgammon">Backgammon</a></li>-->
+                <li><a href="spielende">Spielende</a></li>
             </ul>
         </nav>
-    </header>
-    <main>
+    
         <form action="" method="get" id="listboxmain">
-            <select name="ziel" onchange="window.location.href=this.value">
+            <select name="ziel" >
                 <option value="">-- Bitte wählen --</option>
-                <option value="buttonfield.html">-- Buttonfield --</option>
-                <option value="leistungen.html">-- Leistungen --</option>
-                <option value="Kontakt.html">-- Kontakt --</option>
-                <option value="impressum.html">-- Impressum --</option>
-
-
-
+                <option value="buttonfield">-- Buttonfield --</option>
+                <option value="leistungen">-- Leistungen --</option>
+                <option value="spielstart">-- Spiel Starten --</option>
+                <option value="Kontakt">-- Kontakt --</option>
+                <option value="impressum">-- Impressum --</option>
             </select>
         </form>
+    </header>
+    <main class="layout-container">
+        <!-- SEITE 1: HOME -->
+        <div id="home" class="seite aktiv">
+        
         <h1>Hauptueberschrift</h1>
         <figure>
             <img src="bildki.webp"
@@ -76,55 +52,247 @@ li {
         </figure>
        
         <p>Inhalt der Seite</p>
+        </div>
 
-        <script>
-          const menuButtonMain = document.getElementById("menuButtonMain");
-          const listboxmain = document.getElementById("listboxmain");
-
-          menuButtonMain.addEventListener("click",() => {
-            if(listboxmain.style.display === "" ||listboxmain.style.display === "none") {
-              listboxmain.style.display = "block";
-            }
-            else {
-              listboxmain.style.display = "none";
-            }
-           }  
-      
-
-          );
-         
-          function ganzeSeiteVorlesen() {
-            window.speechSynthesis.cancel();
-            // Greift sich den gesamten sichtbaren Text der Seite
-            const text = document.body.innerText;
+        <!-- SEITE 2: BUTTONFIELD -->
+        <div id="buttonfield" class="seite">
+        <h4 style="text-align: center; margin-bottom: 20px;" >Buttonfield for ever</h4>
     
-            const sprachAusgabe = new SpeechSynthesisUtterance(text);
-            sprachAusgabe.lang = "de-DE";
-                // --- DIAGNOSE-LOGIK ---
-            // Falls ein Fehler auftritt, gibt uns das Aufschluss
-            sprachAusgabe.onerror = function(event) {
-            console.error("Sprachausgabe-Fehler detektiert: ", event.error);
-            alert("Der Browser verweigert das Vorlesen. Grund: " + event.error);
-            };
+         <div class="layout-container-buttonfield">
+          <h1 style="text-align: center; margin-bottom: 20px;">Iiiiiihhh bims</h1> 
 
-            // Falls es startet, wissen wir, dass der Code läuft
-            sprachAusgabe.onstart = function() {
-            console.log("Sprachausgabe erfolgreich gestartet.");
-            };
-            // -----------------------
+           <div class="links">
+            <input type="text" id="eingabename">
+            <label>  Bitte Geben Sie Ihren Namen ein </label>
+            <button id="ein-button" onclick="document.getElementById('nav-liste').classList.toggle('anzeigen')">Menu öffnen/schliessen</button>
+            <form>
+             <select id="nav-liste" class="versteckte-liste" onchange="window.location.href=this.value">
+                <option value="">-- Bitte wählen --</option>
+                <option value="buttonfield">-- Buttonfield --</option>
+                <option value="leistungen">-- Leistungen --</option>
+                <option value="kontakt">-- Kontakt --</option>
+                <option value="impressum">-- Impressum --</option>
+             </select>
+            </form>
+           </div>
+           <div class="rechts">
+            
+            <button id="zweibutton" class="mein-button">hier bin ich</button>
+            <select id=grade name="grade" class="versteckte-liste"></select>
+           </div>
+          </div>
+        </div>
 
-            // 4. Stimmen-Check erzwingen (Weckt die Browser-Engine auf)
-            window.speechSynthesis.getVoices();
+        <!-- SEITE 3: LEISTUNGEN -->
+        <div id="leistungen" class="seite">
+         <h1>Leistungen</h1> 
 
-            // 5. Starten
-            window.speechSynthesis.speak(sprachAusgabe);
-          }
+         <button id="menuButton">Menü öffnen/schliessen</button>
 
-        </script>
+         <div id="listbox">
+           <ul> 
+            <li><a href="">-- Bitte wählen --</a></li>
+            <li><a href="index">-- Startseite --</a></li>
+            <li><a href="buttonfield">-- Buttonfield --</a></li>
+            <li><a href="leistungen">-- Leistungen --</a></li>
+            <li><a href="kontakt">-- Kontakt --</a></li>
+            <li><a href="impressum">-- Impressum --</a></li>
+           </ul>
+         </div>
+          <!-- Die Buttons zum Steuern (hier fängt der funtionierende code an)--> 
+          <button onclick="umschalten('meineListe')">Liste zeigen/verstecken</button>
+          <button onclick="umschalten('meineListbox')">Listbox zeigen/verstecken</button>
+
+          <br><br>
+
+          <!-- Die Elemente, die ein- und ausgeblendet werden sollen -->
+          <ul id="meineListe">
+           <li>Erster Punkt</li>
+           <li>Zweiter Punkt</li>
+          </ul>
+
+          <select id="meineListbox">
+           <option>Option 1</option>
+           <option>Option 2</option>
+          </select>
+        </div>
+
+        <!-- SEITE 4: KONTAKT -->
+        <div id="kontakt" class="seite">
+         <h1>Kontakt</h1> 
+         <br>
+         <form id="meinKontaktFormular">
+
+          <div>
+            <Label>Bitte geben Sie hier Ihre Nachricht ein*:</Label>
+            <br>
+            <textarea id="kontaktarea" name="kontaktarea" cols=35 rows=5 placeholder="Bitte geben Sie hier Ihren Text ein..." required></textarea>
+            <br>
+          </div>
+        
+          <div>
+            <label for="name">Name <span aria-hidden="true">*</span></label>
+            <input id="name" name="name" autocomplete="off" required>
+          </div>
+            
+          <div>
+            <label for="email">E-Mail*</label>
+            <input id="email" name="email" type="email" autocomplete="off" required>
+          </div>
+          <button type="submit">submit</button>
+        
+         </form>
+        </div>
+
+        <!-- SEITE 5: IMPRESSUM -->
+        <div id="impressum" class="seite">
+         <h1>Impressum</h1>         
+        <aside>
+         <h2>Related</h2>
+         <div id="ausgabe" style="white-space: pre-line;"></div>
+         <script>const message = `Hier entsteht (k)ein mehrzeiliger Text mit Javascript
+                 welcher eventuell wichtige Hinweise über den Standort
+                 oder CEO liefert.
+      
+                 `
+                 console.log(message)
+                 document.write(message)
+                 document.getElementById('ausgabe').innerText = message;</script>
+
+            <!-- aside content in here -->
+        </aside>
+        <h4>Wir danken recht herzlich für Ihren Besuch auf unserer Seite. <br>
+            Wir hoffen es hat Ihnen gefallen und wünschen noch einen angenehmen Tag. <br>
+
+            Auf Wiedersehen.</h4>
+        </div>
+
+        <!-- SEITE 6: SPIELSTART -->
+        <div id="spielstart" class="seite">
+          <h2>Spieleranmeldung</h2>
+          <div class="input-group">
+            <input type="text" id="spieler1" required>
+            <label>  Name (Spieler 1) </label>
+          </div>
+          <div class="input-group">
+            <input type="text" id="spieler2" required>
+            <label>  Name (Spieler 2) </label>
+          </div>
+          <button id="spielstarten">Spiel starten</button>
+        <!-- Spieleranmeldungsbildschirm -->
+        <!-- 2 Spieler und startbutton -->
+
+        
+
+
+        </div>
+
+        <!-- SEITE 7: BACKGAMMON -->
+        <div id="backgammon" class="seite">
+         <div class="game-controls">
+          <button id="open-rules">Anleitung anzeigen</button>
+          <div id="spieler-anzeige">Am Zug: <span id="aktueller-spieler">-</span></div>
+         </div>
+        
+         <!--Das native Pop-up-Fenster-->
+         <dialog id="rules-modal">
+          <h2>Backgammon Regeln</h2>
+          <p> Hier kommen die Spielregeln hin... <br>
+            Welcome to Backgammon remastered with gemini <br><br>
+          Zur Info Schwarz spielt von 24 nach 1 (gegen den Uhrzeigersinn) <br>
+                  Weiss von 1 nach 24 (mit dem Uhrzeigersinn) <br>
+                  Steine die einzeln auf einer Zacke liegen , <br>
+                  Können geschlagen werden und landen dann auf der Bar. <br>
+                  Die Steine von der Bar müssen zuerst wieder aufs Feld. <br>
+                  Dazu einfach auf ein, nach den Augenzahlen der Würfel, <br>
+                  mögliches Feld (im gegnerischen Heimfeld) klicken <br>
+                  Wenn alle Steine einer Farbe im Heimfeld sind (letztes Viertel), <br>
+                  kann der Stein per Doppelklick vom Feld befördert werden (ins Ziel) <br>
+                  Fals kein Zug möglich sein sollte, bitte den "Zug passen"-button drücken <br>
+                  Have Fun und Viel Spaß beim spielen!
+                   </p>
+          <button id="close-rules">Schließen</button>
+         </dialog>
+
+         <div>
+         <button id="btn-pass">Zug passen (wenn blockiert)</button>
+         </div>
+
+         <!--Spielfeld und SpielSpaß-->
+         <div class="backgammon-board">
+         <!--Obere Reihe (Zacken 13 bis 24)-->
+          <div class="top-row">
+            <div class="point" data-point="13"></div>
+            <div class="point" data-point="14"></div>
+            <div class="point" data-point="15"></div>
+            <div class="point" data-point="16"></div>
+            <div class="point" data-point="17"></div>
+            <div class="point" data-point="18"></div>
+            <div class="point" data-point="19"></div>
+            <div class="point" data-point="20"></div>
+            <div class="point" data-point="21"></div>
+            <div class="point" data-point="22"></div>
+            <div class="point" data-point="23"></div>
+            <div class="point" data-point="24"></div>
+          </div>
+            <!--Die Bar in der Mitte für die geschlagene Steine-->
+            <div class="bar" id="spiel-bar">
+            <!-- Hier landen geschlagene schwarze Steine -->
+            <div id="bar-schwarz-zone" style="display: flex; flex-direction: column; gap: 3px;"></div>
+    
+            <!-- Hier landen geschlagene weiße Steine -->
+            <div id="bar-weiss-zone" style="display: flex; flex-direction: column; gap: 3px;"></div>
+          </div>
+            <!--Die untere Reihe Zacken 1 -12-->
+          <div class="bottom-row">
+            <div class="point" data-point="12"></div>
+            <div class="point" data-point="11"></div>
+            <div class="point" data-point="10"></div>
+            <div class="point" data-point="9"></div>
+            <div class="point" data-point="8"></div>
+            <div class="point" data-point="7"></div>
+            <div class="point" data-point="6"></div>
+            <div class="point" data-point="5"></div>
+            <div class="point" data-point="4"></div>
+            <div class="point" data-point="3"></div>
+            <div class="point" data-point="2"></div>
+            <div class="point" data-point="1"></div>
+          </div>
+
+         </div>
+         <!--Würfelgrafik (und Logik,js)-->
+         
+         <div class="dice-area">
+          <button id="btn-roll">Würfeln</button>
+          <div id="dice-result"></div>
+         </div>
+        <!--anzeige/ermittlung welcher spieler dran ist und ziehen darf , fals es nachdem würfel und jenachdem wie die steine liegen überhaupt ziehen kann-->
+        </div>
+
+        <!-- SEITE 8: SPIELENDE -->
+        <div id="spielende" class="seite">
+        <!--Endergebnis holen , Gewinner anzeigen -->
+        <!-- Spielergebniss und neustart , zurück zu backgammon  bei gleichen namen , bei neuen spielern zurück zu spielstart-->
+          <h2>Spiel vorbei!</h2>
+          <div id="gewinner-nachricht"></div>
+          <button id="btn-restart-same">Nochmal mit gleichen Spielern</button>
+          <button id="btn-restart-new">Neue Spieler anmelden</button>
+          <button id="btn-toggle-highscore">🏆 Highscore ein-/ausblenden</button>
+        </div>       
+         <!-- DIESER BLOCK KOMMT AUF DEINE SPIELENDE-SEITE -->
+        <div class="highscore-container">
+         <h2>🏆 Hall of Fame</h2>
+          <ol id="highscore-liste">
+            <!-- Hier fügt JavaScript die Gewinner ein -->
+          </ol>
+</div>    
     </main>
     <footer>
-        <a href="impressum.html">impressum</a>
+        <li><a href="impressum">impressum</a></li>
     </footer>
+    <script src=script3.js defer></script>    
+    <script src="backgammon.js" defer></script> <!--noch nioht bestückt -->
 </body>
 
 </html>
+   

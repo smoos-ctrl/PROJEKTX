@@ -1,0 +1,464 @@
+/* Versteckt alle Seiten standardmäßig */
+.seite { 
+    display: none !important; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Zeigt nur die aktive Seite an */
+.seite.aktiv { 
+    display: flex !important; 
+}
+    /* Das Formular ist anfangs unsichtbar */
+#listboxmain {
+      display: none; 
+      margin-top: 1em;
+    }
+#listboxmain select {
+    background-color: #fff8dc; /* Ein heller, passender Ton zu bisque */
+    color: green;              /* Passt zu deiner grünen Überschrift */
+    border: 0.2em solid green;   /* Ein sauberer Rahmen */
+    padding: 0.8em 1.2em;
+    font-size: 1.6em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+li {
+    color: red;
+    margin-bottom: 0.5em;
+    margin-left: 2em;
+}
+
+
+#home{
+background-color:bisque; 
+}
+#home h1 {
+    color:green;
+    text-align:center;
+    text-decoration: underline;
+}
+
+
+
+
+#buttonfield .layout-container-buttonfield {
+ /* 1. DAS GRID-HAUPTLAYOUT: Erstellt ein sauberes Raster */
+
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Zwei gleich breite Spalten */
+      gap: 20px;                      /* Abstand zwischen den Elementen */
+      max-width: 800px;               /* Maximale Breite des Formulars */
+      background-color: rgba(255, 255, 255, 0.9); /* Weißer, leicht transparenter Hintergrund */
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin: 20px auto;             /* Zentriert das gesamte Formular auf der Seite */
+    }
+                /* Spalten-Zuweisung für die Grid-Elemente */
+#buttonfield .links {
+    grid-column: 1; /* Erzwingt die Platzierung in der linken Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+#buttonfield .rechts {
+    grid-column: 2; /* Erzwingt die Platzierung in der rechten Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+#buttonfield{
+       background-color:lime; 
+       font-family: sans-serif;
+}
+
+.mein-button {
+    /* 1. Wichtig für die Stabilität */
+    display: inline-block;
+    box-sizing:border-box; /* Verhindert, dass Rahmen den Button vergrößern */
+    /* 2. Innenabstand (Sorgt für die Größe */
+    padding: 12px 24px; /* Oben/unten | Links/rechts */
+    /*3. Text-Design */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* Entfernt Unterstreichung bei Link-Buttons */
+    /* $. Optik */
+    background-color: #007bff; /* Blau */
+    color:white;
+    border:none; /*Entfernt den hässlichen Standard-Rahmen */
+    border-radius: 4px; /* Leicht abgerundete Ecken */
+    /* 5. Bedienung */
+    cursor: pointer; /* Zeigt die Hand beim Drüberfahren */
+    }
+#buttonfield summary {
+      list-style: none;
+    }
+#buttonfield summary::-webkit-details-marker {
+      display: none; /* Für ältere/andere Browser */
+    }
+  
+  /* Menü-Steuerung */
+#buttonfield .versteckte-liste {
+    display: none; /* Standardmäßig unsichtbar 
+    position: absolute;*/
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+    }
+   /* Klasse wird per Klick hinzugefügt */
+#buttonfield #nav-liste.anzeigen, #grade.anzeigen {
+    display: block; 
+    }
+
+#leistungen {
+  background-color:lightblue; 
+}
+#leistungen #listbox {
+    display: none; /* erst unsichtbar */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    margin-top: 10px;
+  } 
+   /* Entfernt die blaue Farbe und den Unterstrich der Links im Menü */
+#leistungen #listbox ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block; /* Macht die gesamte Zeile anklickbar */
+    padding: 5px 0;
+  }
+
+  /* Ändert die Farbe, wenn man mit der Maus darüber fährt */
+#leistungen #listbox ul li a:hover {
+    color: #0066cc;
+    font-weight: bold;
+  }
+
+#kontakt {
+ background-color:lightcoral; 
+}
+#impressum {
+ background-color:yellow; 
+}
+#spielstart {
+                      /*Mesh gradients (farbverläufe im "glow"-stil*/
+ background-color: #0d1117; /*Dunkler Basiston*/
+ color:white;
+ background-image:
+  radial-gradient(at 20% 20%,rgba(120,119,198,0.3) 0px,transparent 50%),
+  radial-gradient(at 80% 40%,rgba(255,100,10,0.2) 0px,transparent 50%),
+  radial-gradient(at 40% 80%,rgba(0,200,255,0.15) 0px,transparent 50%);
+ background-attachment: fixed; /* Hintergrund scrollt nicht mit*/
+
+}
+/* Damit die Inputs auf Seite 6 untereinander Abstand haben und gut aussehen */
+#spielstart input, 
+#spielstart label, 
+#spielstart button {
+    display: block;            /* 👈 Hier bleibt es block, damit sie sich wie gewohnt verhalten */
+    width: 250px;
+    margin: 8px 0;
+    margin-left: 15px ;
+}
+
+/* Bereich für die Würfel zentrieren */
+.dice-area {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Der Würfel-Button */
+#btn-roll {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: background 0.2s;
+}
+
+#btn-roll:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* Die Würfel-Augen/Boxen */
+#dice-result {
+    display: flex;
+    gap: 15px;
+}
+
+.wuerfel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: white;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 5px rgba(0,0,0,0.1);
+    animation: popIn 0.2s ease-out;
+}
+
+/* Kleiner Animationseffekt beim Erscheinen der Würfel */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+/* 6. Das native Dialog-Fenster (Anleitung) stylen */
+#rules-modal {
+    border: none;
+    border-radius: 12px;
+    padding: 25px;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-width: 400px;
+}
+
+#rules-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln bei offener Anleitung */
+}
+
+/* 1. Die Hauptseite mit dem animierten Hintergrund */
+#backgammon {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Animierter Farbverlauf */
+    background: linear-gradient(45deg, #ee7722, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientMovement 15s ease infinite;
+}
+
+/* 2. Das Spielfeld im edlen Glas-Look (Glassmorphismus) */
+.backgammon-board {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin-top: 20px;
+    border-radius: 12px;
+    
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    
+    /* Repariertes Grid-Layout: Obere und untere Reihe sauber getrennt */
+    display: grid;
+    grid-template-rows: 1fr 1fr; 
+    position: relative;
+}
+
+/* 3. Die Zacken-Reihen (Top und Bottom) */
+.top-row, .bottom-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); 
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 4. Einzelne Zacken als Klick-Zonen */
+.point {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+/* Der Trick: Das sichtbare Dreieck wandert in den Hintergrund */
+.point::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    z-index: 1; /* Hinter die Steine legen */
+}
+
+/* Obere Zacken zeigen nach unten und kleben am oberen Rand */
+.top-row .point {
+    justify-content: flex-start;
+    padding-top: 5px;
+}
+.top-row .point::before {
+    top: 0;
+    border-top: 180px solid rgba(255, 255, 255, 0.3);
+}
+.top-row .point:nth-child(even)::before {
+    border-top-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Untere Zacken zeigen nach oben und kleben am unteren Rand */
+.bottom-row .point {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column-reverse; /* Dreht die Stapelrichtung der Steine um! */
+    padding-bottom: 5px;
+    position: relative;
+}
+.bottom-row .point::before {
+    bottom: 0;
+    border-bottom: 180px solid rgba(255, 255, 255, 0.3);
+}
+.bottom-row .point:nth-child(odd)::before {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Zahlen für die obere Reihe */
+.top-row .point::after {
+    content: attr(data-point);
+    position: absolute;
+    top: -20px; /* Platziert die Zahl knapp über der Zacke */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Zahlen für die untere Reihe */
+.bottom-row .point::after {
+    content: attr(data-point);
+    position: absolute;
+    bottom: -20px; /* Platziert die Zahl knapp unter der Zacke */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 5. Die Bar (Mittellinie) */
+.bar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    z-index: 10; /* Über den Zacken liegend */
+}
+
+/* 6. Das Aussehen der runden Spielfiguren */
+.checker {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    margin: -3px 0; /* Erzeugt einen sauberen Stapel-Look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+    z-index: 5; /* Unbedingt VOR dem Dreieck! */
+    position: relative;
+    transition: transform 0.1s;
+}
+
+/* Farbe: Weißer Spieler (Creme) */
+.checker.weiss {
+    background: #f7f5f0;
+    border: 1px solid #d1cdc4;
+}
+
+/* Farbe: Schwarzer Spieler (Anthrazit) */
+.checker.schwarz {
+    background: #2b2b2b;
+    border: 1px solid #141414;
+}
+
+/* Wenn man mit der Maus über eine Zacke fährt */
+.point:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+@keyframes gradientMovement {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Der ausgewählte Stein glüht blau/neon */
+.checker.selected {
+    transform: scale(1.1); /* Wird minimal größer */
+    box-shadow: 0 0 15px #23a6d5, 0 0 5px #23a6d5, inset 0 2px 2px rgba(255, 255, 255, 0.6);
+    border-color: #23a6d5;
+    z-index: 10; /* Liegt über allen anderen Steinen */
+}
+#spielende{
+                         /*"bento grid" & dezente gitternetzlinien*/
+ background-color: #fafafa; 
+ /*erzeugt feiner Kachelmuster im Hintergrund*/
+ background-image:
+  linear-gradient(#e5e5e5 1px, transparent 1px),
+  linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+ background-size: 40px 40px; /*Größe der Quadrate*/
+
+}
+
+.highscore-container {
+    display: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 300px;
+    margin: 20px auto;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.highscore-container h2 {
+    text-align: center;
+    margin-top: 0;
+    font-size: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 8px;
+}
+
+#highscore-liste {
+    padding-left: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+#highscore-liste li {
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+

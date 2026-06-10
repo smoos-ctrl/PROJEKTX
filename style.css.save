@@ -1,0 +1,183 @@
+/* Versteckt alle Seiten standardmäßig */
+.seite { 
+    display: none; 
+    background: white; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Zeigt nur die aktive Seite an */
+.seite.aktiv { 
+    display: block; 
+}
+#home {
+body { background-color:bisque; }
+h1 {
+    color:green;
+    text-align:center;
+    text-decoration: underline;
+}
+
+li {
+    color: red;
+    margin-bottom: 1.5em;
+    margin-left: 2em;
+}
+
+    /* Das Formular ist anfangs unsichtbar */
+    #listboxmain {
+      display: none; 
+      margin-top: 1em;
+    }
+    #listboxmain select {
+    background-color: #fff8dc; /* Ein heller, passender Ton zu bisque */
+    color: green;              /* Passt zu deiner grünen Überschrift */
+    border: 0.2em solid green;   /* Ein sauberer Rahmen */
+    padding: 0.8em 1.2em;
+    font-size: 1.6em;
+    border-radius: 0.5em;
+    cursor: pointer;
+}
+}
+#buttonfield { 
+ /* 1. DAS GRID-HAUPTLAYOUT: Erstellt ein sauberes Raster */
+  .layout-container-buttonfield {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Zwei gleich breite Spalten */
+      gap: 20px;                      /* Abstand zwischen den Elementen */
+      max-width: 800px;               /* Maximale Breite des Formulars */
+      background-color: rgba(255, 255, 255, 0.9); /* Weißer, leicht transparenter Hintergrund */
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      margin: 20px auto;             /* Zentriert das gesamte Formular auf der Seite */
+    }
+                /* Spalten-Zuweisung für die Grid-Elemente */
+  .links {
+    grid-column: 1; /* Erzwingt die Platzierung in der linken Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+  .rechts {
+    grid-column: 2; /* Erzwingt die Platzierung in der rechten Spalte */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    }
+
+
+body { background-color:lime; 
+       font-family: sans-serif;
+}
+
+.mein-button {
+    /* 1. Wichtig für die Stabilität */
+    display: inline-block;
+    box-sizing:border-box; /* Verhindert, dass Rahmen den Button vergrößern */
+    /* 2. Innenabstand (Sorgt für die Größe */
+    padding: 12px 24px; /* Oben/unten | Links/rechts */
+    /*3. Text-Design */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none; /* Entfernt Unterstreichung bei Link-Buttons */
+    /* $. Optik */
+    background-color: #007bff; /* Blau */
+    color:white;
+    border:none; /*Entfernt den hässlichen Standard-Rahmen */
+    border-radius: 4px; /* Leicht abgerundete Ecken */
+    /* 5. Bedienung */
+    cursor: pointer; /* Zeigt die Hand beim Drüberfahren */
+    }
+    summary {
+      list-style: none;
+    }
+    summary::-webkit-details-marker {
+      display: none; /* Für ältere/andere Browser */
+    }
+  /* Menü-Steuerung */
+  .versteckte-liste {
+    display: none; /* Standardmäßig unsichtbar 
+    position: absolute;*/
+    background-color: white;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
+    }
+   /* Klasse wird per Klick hinzugefügt */
+  #nav-liste.anzeigen, #grade.anzeigen {
+    display: block; 
+    }
+}
+#leistungen {
+  body { background-color:lightblue; }
+
+  #listbox {
+    display: none; /* erst unsichtbar */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    margin-top: 10px;
+  } 
+   /* Entfernt die blaue Farbe und den Unterstrich der Links im Menü */
+  #listbox ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block; /* Macht die gesamte Zeile anklickbar */
+    padding: 5px 0;
+  }
+
+  /* Ändert die Farbe, wenn man mit der Maus darüber fährt */
+  #listbox ul li a:hover {
+    color: #0066cc;
+    font-weight: bold;
+  }
+}
+#kontakt {
+body { background-color:lightcoral; }
+}
+#impressum {
+body { background-color:yellow; }
+}
+#spielstart {
+body{                        /*Mesh gradients (farbverläufe im "glow"-stil*/
+ background-color: #0d1117; /*Dunkler Basiston*/
+ background-image:
+  radial-gradient(at 20% 20%,rgba(120,119,198,0.3) 0px,transparent 50%),
+  radial-gradient(at 80% 40%,rgba(255,100,10,0.2) 0px,transparent 50%),
+  radial-gradient(at 40% 80%,rgba(0,200,255,0.15) 0px,transparent 50%);
+ background-attachment: fixed; /* Hintergrund scrollt nicht mit*/
+}
+}
+#backgammon{
+background:rgba(255,255,255,0.4);/*Halbtransparenter weißer Hintergrund*/
+backdrop-filter: blur(12px);/*Moderner Weichzeichner-Effekt*/
+-webkit-backdrop-filter: blur(12px);/* unterstützung für Safari*/
+border: 1px solid rgba(255,255,255,0.2);
+box-shadow:0 8px 32px rgba(0,0,0,0.1)
+body {
+ background:linear-gradient(-4deg,#ee772,#ee7752,#e73c7e,#23a6d,#23dab);
+ background-size 400% 400%;
+ animation: gradientMovement 1s ease infinite;
+
+dialog::backdrop {
+ background: rgba(0,0,0,0.4);
+}
+
+@keyframes gradientMovement {
+ 0% { background-position: 0% 0%;}}
+}
+#spielende{
+body {                          /*"bento grid" & dezente gitternetzlinien*/
+ background-color: #fafafa; 
+ /*erzeugt feiner Kachelmuster im Hintergrund*/
+ background-image:
+  linear-gradient(#e5e5e5 1px, transparent 1px),
+  linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+ background-size 40px 40px; /*Größe der Quadrate*/
+}
