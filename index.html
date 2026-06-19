@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Seitentitel - Website</title>
     <meta name="description" content="Kurze Beschreibung der Seite.">
-    <link rel="stylesheet" href="style.css">    <!--style.css einbinden wenn es erstellt wurde-->
+    <link rel="stylesheet" href="style.css">   
+    <link rel="stylesheet" href="backgammon.css">  <!--style.css einbinden wenn es erstellt wurde-->
 </head>
 <body>
-    <header>
+    <header class="main-header">
+      <div class="header-actions">
         <button onclick="ganzeSeiteVorlesen()">Ganze Seite vorlesen</button>
-
-
+        <button onclick="changeFontSize('increase')" aria-label="Schrift vergrößern">A+</button>
+        <button onclick="changeFontSize('decrease')" aria-label="Schrift verkleinern">A-</button>
+      </div>
+        <div class="logo">
         <li><a href="home">Startseite</a></li>
-        <button id="menuButtonMain">Menue oeffnen/schliessen</button>
-        <nav aria-label="Hauptnavigation">...navi
+        </div>
+        <button id="menuButtonMain">Menue oeffnen/schliessen
+          <span></span>
+        </button>
+        <nav aria-label="Hauptnavigation" class="main-nav"> ...............................................Seitennavigation....................................................
             <ul>
                 <li><a href="buttonfield">Buttonfield</a></li> 
                 <li><a href="leistungen">Leistungen</a></li> 

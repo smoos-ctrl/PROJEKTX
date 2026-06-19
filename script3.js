@@ -22,6 +22,18 @@ function ganzeSeiteVorlesen() {
     window.speechSynthesis.speak(sprachAusgabe);
 }
 
+function changeFontSize(action) {
+  const root = document.documentElement;
+  // Liest die aktuelle Schriftgröße aus (Standard meist 16px)
+  let currentSize = parseFloat(window.getComputedStyle(root).fontSize);
+  
+  if (action === 'increase') {
+    root.style.fontSize = (currentSize + 2) + 'px';
+  } else if (action === 'decrease') {
+    root.style.fontSize = (currentSize - 2) + 'px';
+  }
+}
+
 // Seiten umschalten (Navigation)
 function switchPage(zielId) {
     if (!zielId) return;
