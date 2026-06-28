@@ -1,156 +1,148 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Seitentitel - Website</title>
-    <meta name="description" content="Kurze Beschreibung der Seite.">
-    <link rel="stylesheet" href="style.css">    <!--style.css einbinden wenn es erstellt wurde-->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Seitentitel - Website</title>
+  <meta name="description" content="Kurze Beschreibung der Seite.">
+  <link rel="stylesheet" href="style.css">   
+  <link rel="stylesheet" href="backgammon.css">  <!--style.css einbinden wenn es erstellt wurde-->
 </head>
 <body>
-    <header>
-        <button onclick="ganzeSeiteVorlesen()">Ganze Seite vorlesen</button>
-
-
-        <li><a href="home">Startseite</a></li>
-        <button id="menuButtonMain">Menue oeffnen/schliessen</button>
-        <nav aria-label="Hauptnavigation">...navi
-            <ul>
-                <li><a href="buttonfield">Buttonfield</a></li> 
-                <li><a href="leistungen">Leistungen</a></li> 
-                <li><a href="kontakt">Kontakt</a></li>
-                <li><a href="spielstart">Spielstart</a></li>
-                <!--<li><a href="backgammon">Backgammon</a></li>-->
-                <li><a href="spielende">Spielende</a></li>
-            </ul>
-        </nav>
-    
-        <form action="" method="get" id="listboxmain">
-            <select name="ziel" >
-                <option value="">-- Bitte wählen --</option>
-                <option value="buttonfield">-- Buttonfield --</option>
-                <option value="leistungen">-- Leistungen --</option>
-                <option value="spielstart">-- Spiel Starten --</option>
-                <option value="Kontakt">-- Kontakt --</option>
-                <option value="impressum">-- Impressum --</option>
-            </select>
-        </form>
-    </header>
-    <main class="layout-container">
-        <!-- SEITE 1: HOME -->
-        <div id="home" class="seite aktiv">
-        
-        <h1>Hauptueberschrift</h1>
-        <figure>
-            <img src="bildki.webp"
-                          alt = "Ich teilte der KI mit sie solle mir ein Bild für meine erste Homepage machen , nur zu Versuchszwecken. das Kam dabei raus :D "
-                          width="1200" 
-                          height="800" 
-                          loading="lazy"
-                          style="max-width: 100%; height: auto;">
-            <figcaption>Homepage frontend</figcaption>
-        </figure>
-       
-        <p>Inhalt der Seite</p>
+  <header class="main-header">
+    <div class="header-actions">
+      <button id="btn-vorlesen" ganzeSeiteVorlesen() aria-label="ganze Seite vorlesen">Ganze Seite vorlesen</button>
+      <button class="btn-font" data-size="increase" aria-label="Schrift vergrößern">A+</button>
+      <button class="btn-font" data-size="decrease" aria-label="Schrift verkleinern">A-</button> 
+    </div>
+    <div class="logo">
+      <li><a href="home">Startseite</a></li>
+    </div>
+      <button id="menuButtonMain">Menue oeffnen/schliessen
+        <span></span>
+      </button>
+      <nav aria-label="Hauptnavigation" class="main-nav"> ...............................................Seitennavigation....................................................
+        <ul>
+          <li><a href="buttonfield">Buttonfield</a></li> 
+          <li><a href="leistungen">Leistungen</a></li> 
+          <li><a href="kontakt">Kontakt</a></li>
+          <li><a href="spielstart">Spielstart</a></li>
+          <!--<li><a href="backgammon">Backgammon</a></li>-->
+          <li><a href="spielende">Spielende</a></li>
+        </ul>
+      </nav>
+      <form action="" method="get" id="listboxmain">
+        <select name="ziel" >
+          <option value="">-- Bitte wählen --</option>
+          <option value="buttonfield">-- Buttonfield --</option>
+          <option value="leistungen">-- Leistungen --</option>
+          <option value="spielstart">-- Spiel Starten --</option>
+          <option value="Kontakt">-- Kontakt --</option>
+          <option value="impressum">-- Impressum --</option>
+        </select>
+      </form>
+  </header>
+  <main class="layout-container">
+    <!-- SEITE 1: HOME -->
+    <div id="home" class="seite aktiv">    
+      <h1>Hauptueberschrift</h1>
+      <figure>
+        <img src="bildki.webp"
+          alt = "Ich teilte der KI mit sie solle mir ein Bild für meine erste Homepage machen , nur zu Versuchszwecken. das Kam dabei raus :D "
+          width="1200" 
+          height="800" 
+          loading="lazy"
+          style="max-width: 100%; height: auto;">
+          <figcaption>Homepage frontend</figcaption>
+      </figure>
+      <p>Inhalt der Seite</p>
+    </div>
+    <!-- SEITE 2: BUTTONFIELD -->
+    <div id="buttonfield" class="seite">
+      <h4 style="text-align: center; margin-bottom: 20px;" >Buttonfield for ever</h4>
+      <div class="layout-container-buttonfield">
+        <h1 style="text-align: center; margin-bottom: 20px;">Iiiiiihhh bims</h1> 
+        <div class="links">
+          <input type="text" id="eingabename">
+          <label>  Bitte Geben Sie Ihren Namen ein </label>
+          <button id="ein-button" data-target="nav-liste">Menu öffnen/schliessen</button>
+          <div class="buttonfield-navigation"></div>
+            <div id="nav-liste" class="mein-menue" style="display: none;">
+              <ul>
+                <li><span class="menue-text">-- Bitte wählen --</span></li>
+                <!-- Diese 'data-page'-Attribute steuern magisch deine Seitenumschaltung -->
+                <li><a class="menue-link" data-page="home">-- Startseite --</a></li>
+                <li><a class="menue-link" data-page="leistungen">-- Leistungen --</a></li>
+                <li><a class="menue-link" data-page="kontakt">-- Kontakt --</a></li>
+                <li><a class="menue-link" data-page="impressum">-- Impressum --</a></li>
+              </ul>
+            </div>
         </div>
-
-        <!-- SEITE 2: BUTTONFIELD -->
-        <div id="buttonfield" class="seite">
-        <h4 style="text-align: center; margin-bottom: 20px;" >Buttonfield for ever</h4>
-    
-         <div class="layout-container-buttonfield">
-          <h1 style="text-align: center; margin-bottom: 20px;">Iiiiiihhh bims</h1> 
-
-           <div class="links">
-            <input type="text" id="eingabename">
-            <label>  Bitte Geben Sie Ihren Namen ein </label>
-            <button id="ein-button" onclick="document.getElementById('nav-liste').classList.toggle('anzeigen')">Menu öffnen/schliessen</button>
-            <form>
-             <select id="nav-liste" class="versteckte-liste" onchange="window.location.href=this.value">
-                <option value="">-- Bitte wählen --</option>
-                <option value="buttonfield">-- Buttonfield --</option>
-                <option value="leistungen">-- Leistungen --</option>
-                <option value="kontakt">-- Kontakt --</option>
-                <option value="impressum">-- Impressum --</option>
-             </select>
-            </form>
-           </div>
-           <div class="rechts">
-            
-            <button id="zweibutton" class="mein-button">hier bin ich</button>
-            <select id=grade name="grade" class="versteckte-liste"></select>
-           </div>
-          </div>
+        <div class="rechts">
+          <button id="zweibutton" class="mein-button">hier bin ich</button>
+          <select id=grade name="grade" class="versteckte-liste"></select>
         </div>
-
-        <!-- SEITE 3: LEISTUNGEN -->
-        <div id="leistungen" class="seite">
-         <h1>Leistungen</h1> 
-
-         <button id="menuButton">Menü öffnen/schliessen</button>
-
-         <div id="listbox">
-           <ul> 
-            <li><a href="">-- Bitte wählen --</a></li>
-            <li><a href="index">-- Startseite --</a></li>
-            <li><a href="buttonfield">-- Buttonfield --</a></li>
-            <li><a href="leistungen">-- Leistungen --</a></li>
-            <li><a href="kontakt">-- Kontakt --</a></li>
-            <li><a href="impressum">-- Impressum --</a></li>
-           </ul>
-         </div>
-          <!-- Die Buttons zum Steuern (hier fängt der funtionierende code an)--> 
-          <button onclick="umschalten('meineListe')">Liste zeigen/verstecken</button>
-          <button onclick="umschalten('meineListbox')">Listbox zeigen/verstecken</button>
-
-          <br><br>
-
-          <!-- Die Elemente, die ein- und ausgeblendet werden sollen -->
-          <ul id="meineListe">
-           <li>Erster Punkt</li>
-           <li>Zweiter Punkt</li>
-          </ul>
-
-          <select id="meineListbox">
-           <option>Option 1</option>
-           <option>Option 2</option>
-          </select>
+      </div>
+    </div>
+    <!-- SEITE 3: LEISTUNGEN -->
+    <div id="leistungen" class="seite">
+      <h1>Leistungen</h1> 
+      <button id="menuButton" data-target="listbox">Menü öffnen/schliessen</button>        
+      <div id="listbox" class="mein-menue" style="display: none;">
+        <ul> 
+          <li><span class="menue-text">-- Bitte wählen --</span></li>
+          <li><a class="menue-link" data-page="home">-- Startseite --</a></li>
+          <li><a class="menue-link" data-page="buttonfield">-- Buttonfield --</a></li>
+          <li><a class="menue-link" data-page="kontakt">-- Kontakt --</a></li>
+          <li><a class="menue-link" data-page="impressum">-- Impressum --</a></li>
+        </ul>
+      </div>
+      <!-- Die Buttons zum Steuern (hier fängt der funtionierende code an)--> 
+      <button data-target="meineListe">Liste zeigen/verstecken</button>
+      <button data-target="meineListbox">Listbox zeigen/verstecken</button>
+      <br><br>
+      <!-- Die Elemente, die ein- und ausgeblendet werden sollen -->
+      <ul id="meineListe" class="mein-menue" style="display: none;">
+        <li>Erster Punkt</li>
+        <li>Zweiter Punkt</li>
+      </ul>
+      <!-- SEO-optimiertes HTML -->
+      <nav id="meineListbox" style="display: none;">
+        <ul>
+          <li><a class="menue-link" href="#service1">Service 1</a></li>
+          <li><a class="menue-link" href="#service2">Service 2</a></li>
+        </ul>
+      </nav>
+    </div>
+    <!-- SEITE 4: KONTAKT -->
+    <div id="kontakt" class="seite">
+      <h1>Kontakt</h1> 
+      <br>
+      <form id="meinKontaktFormular">
+        <div>
+          <Label>Bitte geben Sie hier Ihre Nachricht ein*:</Label>
+          <br>
+          <textarea id="kontaktarea" name="kontaktarea" cols=35 rows=5 placeholder="Bitte geben Sie hier Ihren Text ein..." required></textarea>
+          <br>
+        </div>       
+        <div>
+          <label for="name">Name <span aria-hidden="true">*</span></label>
+          <input id="name" name="name" autocomplete="off" required>
+        </div>           
+        <div>
+          <label for="email">E-Mail*</label>
+          <input id="email" name="email" type="email" autocomplete="off" required>
         </div>
-
-        <!-- SEITE 4: KONTAKT -->
-        <div id="kontakt" class="seite">
-         <h1>Kontakt</h1> 
-         <br>
-         <form id="meinKontaktFormular">
-
-          <div>
-            <Label>Bitte geben Sie hier Ihre Nachricht ein*:</Label>
-            <br>
-            <textarea id="kontaktarea" name="kontaktarea" cols=35 rows=5 placeholder="Bitte geben Sie hier Ihren Text ein..." required></textarea>
-            <br>
-          </div>
-        
-          <div>
-            <label for="name">Name <span aria-hidden="true">*</span></label>
-            <input id="name" name="name" autocomplete="off" required>
-          </div>
-            
-          <div>
-            <label for="email">E-Mail*</label>
-            <input id="email" name="email" type="email" autocomplete="off" required>
-          </div>
-          <button type="submit">submit</button>
-        
-         </form>
-        </div>
-
-        <!-- SEITE 5: IMPRESSUM -->
-        <div id="impressum" class="seite">
-         <h1>Impressum</h1>         
-        <aside>
-         <h2>Related</h2>
-         <div id="ausgabe" style="white-space: pre-line;"></div>
-         <script>const message = `Hier entsteht (k)ein mehrzeiliger Text mit Javascript
+        <button type="submit">submit</button>        
+      </form>
+    </div>
+    <!-- SEITE 5: IMPRESSUM -->
+    <div id="impressum" class="seite">
+      <h1>Impressum</h1>         
+      <aside>
+        <h2>Related</h2>
+        <div id="ausgabe" style="white-space: pre-line;"></div>
+        <script>const message = `Hier entsteht (k)ein mehrzeiliger Text mit Javascript
                  welcher eventuell wichtige Hinweise über den Standort
                  oder CEO liefert.
       
@@ -158,48 +150,40 @@
                  console.log(message)
                  document.write(message)
                  document.getElementById('ausgabe').innerText = message;</script>
-
             <!-- aside content in here -->
-        </aside>
-        <h4>Wir danken recht herzlich für Ihren Besuch auf unserer Seite. <br>
-            Wir hoffen es hat Ihnen gefallen und wünschen noch einen angenehmen Tag. <br>
+      </aside>
+      <h4>Wir danken recht herzlich für Ihren Besuch auf unserer Seite. <br>
+          Wir hoffen es hat Ihnen gefallen und wünschen noch einen angenehmen Tag. <br>
 
-            Auf Wiedersehen.</h4>
-        </div>
-
-        <!-- SEITE 6: SPIELSTART -->
-        <div id="spielstart" class="seite">
-          <h2>Spieleranmeldung</h2>
-          <div class="input-group">
-            <input type="text" id="spieler1" required>
-            <label>  Name (Spieler 1) </label>
-          </div>
-          <div class="input-group">
-            <input type="text" id="spieler2" required>
-            <label>  Name (Spieler 2) </label>
-          </div>
-          <button id="spielstarten">Spiel starten</button>
-        <!-- Spieleranmeldungsbildschirm -->
-        <!-- 2 Spieler und startbutton -->
-
-        
-
-
-        </div>
-
-        <!-- SEITE 7: BACKGAMMON -->
-        <div id="backgammon" class="seite">
-         <div class="game-controls">
-          <button id="open-rules">Anleitung anzeigen</button>
-          <div id="spieler-anzeige">Am Zug: <span id="aktueller-spieler">-</span></div>
-         </div>
-        
-         <!--Das native Pop-up-Fenster-->
-         <dialog id="rules-modal">
-          <h2>Backgammon Regeln</h2>
-          <p> Hier kommen die Spielregeln hin... <br>
+          Auf Wiedersehen.</h4>
+    </div>
+    <!-- SEITE 6: SPIELSTART -->
+    <div id="spielstart" class="seite">
+      <h2>Spieleranmeldung</h2>
+      <div class="input-group">
+        <input type="text" id="spieler1" required>
+        <label>  Name (Spieler 1) </label>
+      </div>
+      <div class="input-group">
+        <input type="text" id="spieler2" required>
+        <label>  Name (Spieler 2) </label>
+      </div>
+      <button id="spielstarten">Spiel starten</button>
+      <!-- Spieleranmeldungsbildschirm -->
+      <!-- 2 Spieler und startbutton -->
+    </div>
+    <!-- SEITE 7: BACKGAMMON -->
+    <div id="backgammon" class="seite">
+      <div class="game-controls">
+        <button id="open-rules">Anleitung anzeigen</button>
+        <div id="spieler-anzeige">Am Zug: <span id="aktueller-spieler">-</span></div>
+      </div>       
+      <!--Das native Pop-up-Fenster-->
+      <dialog id="rules-modal">
+        <h2>Backgammon Regeln</h2>
+        <p> Hier kommen die Spielregeln hin... <br>
             Welcome to Backgammon remastered with gemini <br><br>
-          Zur Info Schwarz spielt von 24 nach 1 (gegen den Uhrzeigersinn) <br>
+            Zur Info Schwarz spielt von 24 nach 1 (gegen den Uhrzeigersinn) <br>
                   Weiss von 1 nach 24 (mit dem Uhrzeigersinn) <br>
                   Steine die einzeln auf einer Zacke liegen , <br>
                   Können geschlagen werden und landen dann auf der Bar. <br>
@@ -210,17 +194,16 @@
                   kann der Stein per Doppelklick vom Feld befördert werden (ins Ziel) <br>
                   Fals kein Zug möglich sein sollte, bitte den "Zug passen"-button drücken <br>
                   Have Fun und Viel Spaß beim spielen!
-                   </p>
-          <button id="close-rules">Schließen</button>
-         </dialog>
-
-         <div>
-         <button id="btn-pass">Zug passen (wenn blockiert)</button>
-         </div>
-
-         <!--Spielfeld und SpielSpaß-->
-         <div class="backgammon-board">
-         <!--Obere Reihe (Zacken 13 bis 24)-->
+        </p>
+        <button id="close-rules">Schließen</button>
+      </dialog>
+      <div>
+      <button id="btn-pass">Zug passen (wenn blockiert)</button>
+      </div>
+      <!--Spielfeld und SpielSpaß-->
+      <div class="game-container">
+        <div class="backgammon-board">
+          <!--Obere Reihe (Zacken 13 bis 24)-->
           <div class="top-row">
             <div class="point" data-point="13"></div>
             <div class="point" data-point="14"></div>
@@ -235,15 +218,14 @@
             <div class="point" data-point="23"></div>
             <div class="point" data-point="24"></div>
           </div>
-            <!--Die Bar in der Mitte für die geschlagene Steine-->
-            <div class="bar" id="spiel-bar">
+          <!--Die Bar in der Mitte für die geschlagene Steine-->
+          <div class="bar" id="spiel-bar">
             <!-- Hier landen geschlagene schwarze Steine -->
             <div id="bar-schwarz-zone" style="display: flex; flex-direction: column; gap: 3px;"></div>
-    
             <!-- Hier landen geschlagene weiße Steine -->
             <div id="bar-weiss-zone" style="display: flex; flex-direction: column; gap: 3px;"></div>
           </div>
-            <!--Die untere Reihe Zacken 1 -12-->
+          <!--Die untere Reihe Zacken 1 -12-->
           <div class="bottom-row">
             <div class="point" data-point="12"></div>
             <div class="point" data-point="11"></div>
@@ -258,41 +240,43 @@
             <div class="point" data-point="2"></div>
             <div class="point" data-point="1"></div>
           </div>
-
-         </div>
-         <!--Würfelgrafik (und Logik,js)-->
-         
-         <div class="dice-area">
+        </div>
+        <!--Würfelgrafik (und Logik,js)-->
+        <div class="dice-area">
           <button id="btn-roll">Würfeln</button>
           <div id="dice-result"></div>
-         </div>
-        <!--anzeige/ermittlung welcher spieler dran ist und ziehen darf , fals es nachdem würfel und jenachdem wie die steine liegen überhaupt ziehen kann-->
         </div>
-
-        <!-- SEITE 8: SPIELENDE -->
-        <div id="spielende" class="seite">
-        <!--Endergebnis holen , Gewinner anzeigen -->
-        <!-- Spielergebniss und neustart , zurück zu backgammon  bei gleichen namen , bei neuen spielern zurück zu spielstart-->
-          <h2>Spiel vorbei!</h2>
-          <div id="gewinner-nachricht"></div>
-          <button id="btn-restart-same">Nochmal mit gleichen Spielern</button>
-          <button id="btn-restart-new">Neue Spieler anmelden</button>
-          <button id="btn-toggle-highscore">🏆 Highscore ein-/ausblenden</button>
-        </div>       
-         <!-- DIESER BLOCK KOMMT AUF DEINE SPIELENDE-SEITE -->
-        <div class="highscore-container">
-         <h2>🏆 Hall of Fame</h2>
-          <ol id="highscore-liste">
-            <!-- Hier fügt JavaScript die Gewinner ein -->
-          </ol>
-</div>    
-    </main>
-    <footer>
-        <li><a href="impressum">impressum</a></li>
-    </footer>
-    <script src=script3.js defer></script>    
-    <script src="backgammon.js" defer></script> <!--noch nioht bestückt -->
+        <!--anzeige/ermittlung welcher spieler dran ist und ziehen darf , fals es nachdem würfel und jenachdem wie die steine liegen überhaupt ziehen kann-->
+      </div>
+    </div>
+    <!-- SEITE 8: SPIELENDE -->
+    <div id="spielende" class="seite">
+    <!--Endergebnis holen , Gewinner anzeigen -->
+    <!-- Spielergebniss und neustart , zurück zu backgammon  bei gleichen namen , bei neuen spielern zurück zu spielstart-->
+      <h2>Spiel vorbei!</h2>
+      <div id="gewinner-nachricht"></div>
+      <button id="btn-restart-same">Nochmal mit gleichen Spielern</button>
+      <button id="btn-restart-new">Neue Spieler anmelden</button>
+      <button id="btn-toggle-highscore">🏆 Highscore ein-/ausblenden</button>
+          
+      <div class="highscore-container" style="display:none">
+        <h2>🏆 Hall of Fame</h2>
+        <ol id="highscore-liste">
+        <!-- Hier fügt JavaScript die Gewinner ein -->
+        </ol>
+      </div>   
+    </div> 
+  </main>
+  <footer class="main-footer">
+    <p>&copy; 2026 Deine Übungsseite. Alle Rechte vorbehalten.</p>
+  <div class="footer-links">
+    <li><a href="impressum">impressum</a></li>
+    <!--<a href="#">Datenschutz</a>gute idee sollte noch erstellt werden-->
+  </div>
+    
+  </footer>
+  <script type="module" src=script33.js ></script>    
+  <!-- wird in script3 geladen/eingebaut <script src="backgammon.js" defer></script> noch nioht bestückt -->
 </body>
-
 </html>
    

@@ -1,0 +1,261 @@
+/* Erzeugt die Box, die Board und Steuerung nebeneinander hält */
+.game-container {
+    display: flex;
+    flex-direction: row;      /* Elemente nebeneinander */
+    align-items: center;      /* Vertikal mittig ausrichten */
+    justify-content: center;   /* Horizontal mittig ausrichten */
+    gap: 40px;                /* Abstand zwischen Board und Würfeln */
+    width: 100%;
+    max-width: 1200px;        /* Maximale Breite auf großen Monitoren */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Neuer Container für die rechte Seite (Würfel + Text) */
+.control-panel {
+    display: flex;
+    flex-direction: column;   /* Würfel oben, Info-Text darunter */
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;           /* Verhindert, dass die Würfel gestaucht werden */
+}
+/* Bereich für die Würfel zentrieren */
+.dice-area {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+/* Einfaches Styling für die Spieler-Turn-Anzeige */
+.turn-display {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+/* REPRODUZIERBARKEIT FÜR SMARTPHONES: 
+   Wenn der Bildschirm schmaler als 1050px wird, bricht das Layout sauber untereinander um */
+@media (max-width: 1050px) {
+    .game-container {
+        flex-direction: column; 
+        gap: 20px;
+    }
+}
+/* Der Würfel-Button */
+#btn-roll {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: background 0.2s;
+}
+#btn-roll:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+/* Die Würfel-Augen/Boxen */
+#dice-result {
+    display: flex;
+    gap: 15px;
+}
+.wuerfel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: white;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2), inset 0 0 5px rgba(0,0,0,0.1);
+    animation: popIn 0.2s ease-out;
+}
+/* Kleiner Animationseffekt beim Erscheinen der Würfel */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+/* 6. Das native Dialog-Fenster (Anleitung) stylen */
+#rules-modal {
+    border: none;
+    border-radius: 12px;
+    padding: 25px;
+    background: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-width: 400px;
+}
+#rules-modal::backdrop {
+    background: rgba(0, 0, 0, 0.5); /* Hintergrund abdunkeln bei offener Anleitung */
+}
+/* 1. Die Hauptseite mit dem animierten Hintergrund */
+#backgammon {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Animierter Farbverlauf */
+    background: linear-gradient(45deg, #ee7722, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientMovement 15s ease infinite;
+}
+/* 2. Das Spielfeld im edlen Glas-Look (Glassmorphismus) */
+.backgammon-board {
+    width: 100%;
+    max-width: 800px;
+    height: 500px;
+    margin-top: 20px;
+    border-radius: 12px;  
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);   
+    /* Repariertes Grid-Layout: Obere und untere Reihe sauber getrennt */
+    display: grid;
+    grid-template-rows: 1fr 1fr; 
+    position: relative;
+}
+/* 3. Die Zacken-Reihen (Top und Bottom) */
+.top-row, .bottom-row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); 
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+/* 4. Einzelne Zacken als Klick-Zonen */
+.point {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+/* Der Trick: Das sichtbare Dreieck wandert in den Hintergrund */
+.point::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    z-index: 1; /* Hinter die Steine legen */
+}
+/* Obere Zacken zeigen nach unten und kleben am oberen Rand */
+.top-row .point {
+    justify-content: flex-start;
+    padding-top: 5px;
+}
+.top-row .point::before {
+    top: 0;
+    border-top: 180px solid rgba(255, 255, 255, 0.3);
+}
+.top-row .point:nth-child(even)::before {
+    border-top-color: rgba(0, 0, 0, 0.2);
+}
+/* Untere Zacken zeigen nach oben und kleben am unteren Rand */
+.bottom-row .point {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column-reverse; /* Dreht die Stapelrichtung der Steine um! */
+    padding-bottom: 5px;
+    position: relative;
+}
+.bottom-row .point::before {
+    bottom: 0;
+    border-bottom: 180px solid rgba(255, 255, 255, 0.3);
+}
+.bottom-row .point:nth-child(odd)::before {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+/* Zahlen für die obere Reihe */
+.top-row .point::after {
+    content: attr(data-point);
+    position: absolute;
+    top: -20px; /* Platziert die Zahl knapp über der Zacke */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(14px, 2.5vw, 32px);
+    font-weight: bold;
+    color: #333;
+}
+/* Zahlen für die untere Reihe */
+.bottom-row .point::after {
+    content: attr(data-point);
+    position: absolute;
+    bottom: -20px; /* Platziert die Zahl knapp unter der Zacke */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(14px, 2.5vw, 32px);
+    font-weight: bold;
+    color: #333;
+}
+/* 5. Die Bar (Mittellinie) */
+.bar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    z-index: 10; /* Über den Zacken liegend */
+}
+/* 6. Das Aussehen der runden Spielfiguren */
+.checker {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    margin: -3px 0; /* Erzeugt einen sauberen Stapel-Look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 2px 2px rgba(255, 255, 255, 0.4);
+    z-index: 5; /* Unbedingt VOR dem Dreieck! */
+    position: relative;
+    transition: transform 0.1s;
+}
+/* Farbe: Weißer Spieler (Creme) */
+.checker.weiss {
+    background: #f7f5f0;
+    border: 1px solid #d1cdc4;
+}
+/* Farbe: Schwarzer Spieler (Anthrazit) */
+.checker.schwarz {
+    background: #2b2b2b;
+    border: 1px solid #141414;
+}
+/* Wenn man mit der Maus über eine Zacke fährt */
+.point:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+@keyframes gradientMovement {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+/* Der ausgewählte Stein glüht blau/neon */
+.checker.selected {
+    transform: scale(1.1); /* Wird minimal größer */
+    box-shadow: 0 0 15px #23a6d5, 0 0 5px #23a6d5, inset 0 2px 2px rgba(255, 255, 255, 0.6);
+    border-color: #23a6d5;
+    z-index: 10; /* Liegt über allen anderen Steinen */
+}
