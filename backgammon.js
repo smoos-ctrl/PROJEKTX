@@ -1,6 +1,13 @@
- //Alles um BAckgammon ab hier ----------
+
+import { t, aktuelleSprache } from "./script33.js";
 // -------------------------------------------------------------
 import { switchPage } from './script33.js'; 
+// Diese Funktion übersetzt den Text automatisch, bevor sie den alert anzeigt
+function i18nAlert(key,options ={}) {
+    const message = t(key,options) || options.defaultValue || key;
+    alert(message);
+}
+//Alles um BAckgammon ab hier ----------
 // --- SPIELSTART LOGIK ---
 const btnSpielstarten = document.getElementById("spielstarten");
 const spieler1Input = document.getElementById("spieler1");
@@ -10,7 +17,7 @@ const anzeigeSpieler = document.getElementById("aktueller-spieler");
 if (btnSpielstarten && spieler1Input && spieler2Input) {
     btnSpielstarten.addEventListener("click", () => {
         if (spieler1Input.value.trim() === "" || spieler2Input.value.trim() === "") {
-            alert("Bitte geben Sie die Namen beider Spieler ein!");
+            i18nAlert('inputname_message',{defaultValue:"Bitte geben Sie die Namen beider Spieler ein!"});
             return;
         }
         if (anzeigeSpieler) {
@@ -29,11 +36,18 @@ let wurfSpieler2 = 0;
 let aktiverSpielerFarbe = ""; 
 let ausgewaehlteZacke = null; 
 let verbleibendeZuege = []; // Speichert die gewürfelten Augen
-let barWeiss = 0;
+let barWeiß = 0;
 let barSchwarz = 0;
-let ausgespielteSteineWeiss = 0;
+let ausgespielteSteineWeiß = 0;
 let ausgespielteSteineSchwarz = 0;
 let highscore = [];
+const farbuebersetzungen = {
+  rot: { de: "Rot", en: "Red", fr: "Rouge", es: "rojo"},
+  blau: { de: "Blau", en: "Blue", fr: "Bleu", es: "azul"},
+  gruen: { de: "Grün", en: "Green", fr: "Vert", es: "Verde"},
+  Weiß: { de: "Weiß", en: "White", fr: "Blanc", es: "Blanco/a"},
+  Schwarz: { de: "Schwarz", en: "Black", fr: "Noir", es: "Negro/a"}
+};
 // Der Browser schaut erst im localStorage nach. Wenn da nichts ist, nimmt er den leeren Korb []
 //export let highscoreListe = JSON.parse(localStorage.getItem("backgammon_highscores")) || [];
 
@@ -56,23 +70,25 @@ if (btnRoll && diceResult) {
             wurfSpieler2 = wurf;
             diceResult.innerHTML += `<span class="wuerfel">${wurfSpieler2}</span>`;
             if (wurfSpieler1 > wurfSpieler2) {
-                alert(name1 + " gewinnt den Startwurf und beginnt (Farbe: Weiß)!");
-                aktiverSpielerFarbe = "weiss";
+                i18nAlert('startwinname_message',{defaultValue:(name1 + " gewinnt den Startwurf und beginnt (Farbe: Weiß)!")});
+                aktiverSpielerFarbe = "Weiß";
                 if (anzeigeSpieler) anzeigeSpieler.textContent = name1 + " (Weiß)";
                 phase = "spiel";
                 btnRoll.textContent = "Regulär Würfeln";
                 verbleibendeZuege = [wurfSpieler1, wurfSpieler2]; 
             } 
             else if (wurfSpieler2 > wurfSpieler1) {
-                alert(name2 + " gewinnt den Startwurf und beginnt (Farbe: Weiss)!");
-                aktiverSpielerFarbe = "weiss";
-                if (anzeigeSpieler) anzeigeSpieler.textContent = name2 + " (weiss)";                        phase = "spiel";
+                i18nAlert('startwinname_message',{defaultValue:(name2 + " gewinnt den Startwurf und beginnt (Farbe: Weiß)!")});
+                aktiverSpielerFarbe = "Weiß";
+                if (anzeigeSpieler) anzeigeSpieler.textContent = name2 + " (Weiß)";                        
+                phase = "spiel";
                 btnRoll.textContent = "Regulär Würfeln";
                 // WICHTIG: Die Startwürfel direkt als Züge eintragen!
                 verbleibendeZuege = [wurfSpieler1, wurfSpieler2]; 
             } 
             else {
-                alert("Gleichstand! Bitte noch einmal würfeln.");                        wurfSpieler1 = 0;
+                i18nAlert('samedice_message',{defaultValue:"Gleichstand! Bitte noch einmal würfeln."});                        
+                wurfSpieler1 = 0;
                 wurfSpieler2 = 0;
                 diceResult.innerHTML = "";
                 btnRoll.textContent = `Startwurf: ${name1}`;
@@ -83,7 +99,7 @@ if (btnRoll && diceResult) {
     else if (phase === "spiel") {
     // Wenn noch ungenutzte Würfel da sind, darf nicht neu gewürfelt werden
         if (verbleibendeZuege.length > 0) {
-            alert("Du musst erst deine Züge machen!");
+            i18nAlert('makemove_message',{defaultValue:"Du musst erst deine Züge machen!"});
             return;
         }
         aufhebenSelektion();
@@ -117,13 +133,13 @@ document.querySelectorAll('.point').forEach(zacke => {
     zacke.addEventListener('click', () => {
         if (phase === "auslosung") return;
         if (verbleibendeZuege.length === 0) {
-            alert("Bitte zuerst würfeln!");
+            i18nAlert('rolldice1_message',{defaultValue:"Bitte zuerst würfeln!"});
             return;
         }
         const zuId = parseInt(zacke.getAttribute('data-point'));
         const istObereReihe = zacke.parentElement.classList.contains('top-row');
         // --- PRÜFUNG: HAT DER SPIELER STEINE AUF DER BAR? ---
-        const hatSteineAufBar = (aktiverSpielerFarbe === "weiss" && barWeiss > 0) || (aktiverSpielerFarbe === "schwarz" && barSchwarz > 0);
+        const hatSteineAufBar = (aktiverSpielerFarbe === "Weiß" && barWeiß > 0) || (aktiverSpielerFarbe === "Schwarz" && barSchwarz > 0);
         // ABGEPASST AN DEIN CSS:
         // In der top-row ist der oberste Stein das LETZTE Element (lastElementChild)
         // In der bottom-row (wegen column-reverse) ist der oberste Stein das ERSTE Element (firstElementChild)
@@ -139,43 +155,43 @@ document.querySelectorAll('.point').forEach(zacke => {
                 // Berechnen, wie weit der Schritt von "außerhalb" auf dieses Feld wäre
                 // Weiß startet vor Feld 1 (quasi bei 0) -> distanz ist die Feldnummer selbst
                 // Schwarz startet nach Feld 24 (quasi bei 25) -> distanz ist 25 - Feldnummer
-                let barDistanz = aktiverSpielerFarbe === "weiss" ? zuId : (25 - zuId);
+                let barDistanz = aktiverSpielerFarbe === "Weiß" ? zuId : (25 - zuId);
                 // Prüfen, ob die gewürfelten Augen zu diesem Einstiegsfeld passen
                 const wuerfelIndex = verbleibendeZuege.indexOf(barDistanz);
                 if (wuerfelIndex !== -1) {
                     // Prüfen, ob das Feld frei ist (weniger als 2 gegnerische Steine)
-                    const gegnerFarbe = aktiverSpielerFarbe === "weiss" ? "schwarz" : "weiss";
+                    const gegnerFarbe = aktiverSpielerFarbe === "Weiß" ? "Schwarz" : "Weiß";
                     const gegnerSteineAnzahl = zacke.querySelectorAll(`.checker.${gegnerFarbe}`).length;
                     if (gegnerSteineAnzahl >= 2) {
-                        alert("Dieses Einstiegsfeld ist vom Gegner blockiert!");
+                        i18nAlert('blocked_message',{defaultValue:"Dieses Einstiegsfeld ist vom Gegner blockiert!"});
                         return;
                     }
                     // --- ZUG VON DER BAR AUSFÜHREN ---
-                    const barZoneId = aktiverSpielerFarbe === "weiss" ? "bar-weiss-zone" : "bar-schwarz-zone";
+                    const barZoneId = aktiverSpielerFarbe === "Weiß" ? "Bar-Weiß-Zone" : "Bar-Schwarz-Zone";
                     const barZone = document.getElementById(barZoneId);                
                     if (barZone && barZone.lastElementChild) {
                         const steinVonBar = barZone.lastElementChild;               
                         // Falls der Gegner dort genau 1 Stein hat -> Schlagen!
                         if (gegnerSteineAnzahl === 1) {
-                            alert(`💥 Direkt beim Einstieg gekickt! Der ${gegnerFarbe}e Stein muss auf die Bar!`);
                             const geschlagenerStein = zacke.querySelector(`.checker.${gegnerFarbe}`);
-                            const zielBarZone = document.getElementById(gegnerFarbe === "weiss" ? "bar-weiss-zone" : "bar-schwarz-zone");
+                            const zielBarZone = document.getElementById(gegnerFarbe === "Weiß" ? "Bar-Weiß-Zone" : "Bar-Schwarz-Zone");
+                            i18nAlert('kickedoutagain_message',{defaultValue:`💥 Direkt beim Einstieg gekickt! Der ${gegnerFarbe}e Stein muss auf die Bar!`});
                             if (geschlagenerStein && zielBarZone) {
                                 zielBarZone.appendChild(geschlagenerStein);
                             }
-                            if (gegnerFarbe === "weiss") barWeiss++; else barSchwarz++;
+                            if (gegnerFarbe === "Weiß") barWeiß++; else barSchwarz++;
                         }
                         // Stein von der Bar auf das angeklickte Feld setzen
                         zacke.appendChild(steinVonBar);       
                         // Zähler verringern
-                        if (aktiverSpielerFarbe === "weiss") barWeiss--; else barSchwarz--;             
+                        if (aktiverSpielerFarbe === "Weiß") barWeiß--; else barSchwarz--;             
                         // Würfel abziehen und Zug beenden
                         verbleibendeZuege.splice(wuerfelIndex, 1);
+                        i18nAlert('backingame_message',{defaultValue:`Stein erfolgreich von der Bar ins Feld ${zuId} eingesetzt!`});
                         pruefeSpielerWechsel();
-                        alert(`Stein erfolgreich von der Bar ins Feld ${zuId} eingesetzt!`);
                     }
                 } else {
-                    alert(`Ungültiger Einstieg! Du kannst mit deinen Würfeln [${verbleibendeZuege.join(", ")}] nicht auf Feld ${zuId} einsteigen (benötigte Augenzahl: ${barDistanz}).`);
+                    i18nAlert('noentry_message',{defaultValue:`Ungültiger Einstieg! Du kannst mit deinen Würfeln [${verbleibendeZuege.join(", ")}] nicht auf Feld ${zuId} einsteigen (benötigte Augenzahl: ${barDistanz}).`});
                 }
                 return; // Wichtig: Verhindert, dass der normale Auswahlcode danach ausgeführt wird!
             }
@@ -184,7 +200,7 @@ document.querySelectorAll('.point').forEach(zacke => {
                     obersterStein.classList.add('selected');
                     ausgewaehlteZacke = zacke;
                 } else if (obersterStein) {
-                    alert("Das ist nicht dein Stein!");
+                    i18nAlert('notyourstone_message',{defaultValue:"Das ist nicht dein Stein!"});
                 }
             } 
             // FALL 2: Abbrechen bei Klick auf dieselbe Zacke
@@ -194,9 +210,9 @@ document.querySelectorAll('.point').forEach(zacke => {
             // FALL 3: Stein bewegen / Schlagen (Normaler Zug vom Feld)
             else {
                 const vonId = parseInt(ausgewaehlteZacke.getAttribute('data-point'));
-                let distanz = aktiverSpielerFarbe === "weiss" ? (zuId - vonId) : (vonId - zuId);
+                let distanz = aktiverSpielerFarbe === "Weiß" ? (zuId - vonId) : (vonId - zuId);
                 if (distanz <= 0) {
-                    alert("Falsche Richtung! Du musst dich vorwärts bewegen.");
+                    i18nAlert('wrongdirection_message',{defaultValue:"Falsche Richtung! Du musst dich vorwärts bewegen."});
                     aufhebenSelektion();
                     return;
                 }
@@ -216,7 +232,7 @@ document.querySelectorAll('.point').forEach(zacke => {
             if (phase !== "spiel" || verbleibendeZuege.length === 0) return;
             // Prüfen, ob dieser Spieler überhaupt schon ausspielen darf
             if (!darfAusspielen(aktiverSpielerFarbe)) {
-                alert("Du musst erst ALLE deine Steine in dein Heimfeld bringen!");
+                i18nAlert('allstonesinside1_message',{defaultValue:"Du musst erst ALLE deine Steine in dein Heimfeld bringen!"});
                 return;
             }
             const vonId = parseInt(zacke.getAttribute('data-point'));
@@ -227,7 +243,7 @@ document.querySelectorAll('.point').forEach(zacke => {
             // Berechnen, wie viele Augen man exakt braucht, um das Feld zu verlassen:
             // Weiß steht auf 19-24. Von 24 braucht man 1 Auge, von 23 braucht man 2... also: 25 - vonId
             // Schwarz steht auf 1-6. Von 1 braucht man 1 Auge, von 2 braucht man 2... also exakt: vonId
-            let benoetigteAugen = aktiverSpielerFarbe === "weiss" ? (25 - vonId) : vonId;
+            let benoetigteAugen = aktiverSpielerFarbe === "Weiß" ? (25 - vonId) : vonId;
             // Schauen, ob wir die exakte Würfelzahl im Array haben
             let wuerfelIndex = verbleibendeZuege.indexOf(benoetigteAugen);
             // Offizielle Backgammon-Regel: Wenn man eine höhere Zahl gewürfelt hat, als man eigentlich braucht 
@@ -245,19 +261,19 @@ document.querySelectorAll('.point').forEach(zacke => {
                 // Stein vom Brett löschen
                 zacke.removeChild(obersterStein);
                 // Zähler erhöhen
-                if (aktiverSpielerFarbe === "weiss") {
-                    ausgespielteSteineWeiss++;
+                if (aktiverSpielerFarbe === "Weiß") {
+                    ausgespielteSteineWeiß++;
                 } else {
                     ausgespielteSteineSchwarz++;
                 }
                 // Würfel abziehen und Auswahl säubern
                 verbleibendeZuege.splice(wuerfelIndex, 1);
                 aufhebenSelektion();
-                alert(`Ein ${aktiverSpielerFarbe}er Stein wurde ausgespielt!`);
+                i18nAlert('stoneout_message',{defaultValue:`Ein ${aktiverSpielerFarbe}er Stein wurde ausgespielt!`});
                 // GEWINN-PRÜFUNG: Wer 15 Steine draußen hat, gewinnt das Match!
-                if (ausgespielteSteineWeiss === 15) {
+                if (ausgespielteSteineWeiß === 15) {
                     const sieger = spieler1Input ? spieler1Input.value.trim() || "Spieler Weiß" : "Spieler Weiß";
-                    alert(`🏆 Herzlichen Glückwunsch! ${sieger} WEISS hat das Spiel gewonnen!`);
+                    i18nAlert('winnergame_message',{defaultValue:`🏆 Herzlichen Glückwunsch! ${sieger} WEIß hat das Spiel gewonnen!`});
                     // Name UND Datum/Punkte als Objekt speichern (besser für die Highscore-Logik!)
                     highscoreListe.push({ name: sieger, farbe: "Weiß", datum: new Date().toLocaleDateString() }); 
                     if (typeof aktualisiereHighscoreAnzeige === "function") aktualisiereHighscoreAnzeige();                
@@ -268,7 +284,7 @@ document.querySelectorAll('.point').forEach(zacke => {
                     switchPage("spielende");
                 } else if (ausgespielteSteineSchwarz === 15) {
                     const sieger = spieler2Input ? spieler2Input.value.trim() || "Spieler Schwarz" : "Spieler Schwarz";
-                    alert(`🏆 Herzlichen Glückwunsch! ${sieger}  SCHWARZ hat das Spiel gewonnen!`);
+                    i18nAlert('winnergame2_message',{defaultValue:`🏆 Herzlichen Glückwunsch! ${sieger}  SCHWARZ hat das Spiel gewonnen!`});
                     // Name UND Datum/Punkte als Objekt speichern (besser für die Highscore-Logik!)
                     highscoreListe.push({ name: sieger, farbe: "Schwarz", datum: new Date().toLocaleDateString() }); 
                     if (typeof aktualisiereHighscoreAnzeige === "function") aktualisiereHighscoreAnzeige();     
@@ -280,7 +296,7 @@ document.querySelectorAll('.point').forEach(zacke => {
                 }
                 pruefeSpielerWechsel();
             } else {
-                alert(`Du hast keinen passenden Würfel, um einen Stein von Feld ${vonId} herauszuspielen (benötigt: ${benoetigteAugen}).`);
+                i18nAlert('wrongvalueout_message',{defaultValue:`Du hast keinen passenden Würfel, um einen Stein von Feld ${vonId} herauszuspielen (benötigt: ${benoetigteAugen}).`});
             }
         });
     });
@@ -288,61 +304,160 @@ document.querySelectorAll('.point').forEach(zacke => {
 export function fuehreZugAus(distanz, zielZacke, bewegeSteinDOMFunktion) {
         const wuerfelIndex = verbleibendeZuege.indexOf(distanz);
         if (wuerfelIndex !== -1) {
-            const gegnerFarbe = aktiverSpielerFarbe === "weiss" ? "schwarz" : "weiss";
+            const gegnerFarbe = aktiverSpielerFarbe === "Weiß" ? "Schwarz" : "Weiß";
             const gegnerSteine = zielZacke.querySelectorAll(`.checker.${gegnerFarbe}`);
             const gegnerSteineAnzahl = gegnerSteine.length;
+
             if (gegnerSteineAnzahl >= 2) {
-                alert("Dieser Point ist vom Gegner blockiert!");
+                i18nAlert('blockedpoint_message',{defaultValue:"Dieser Point ist vom Gegner blockiert!"});
                 aufhebenSelektion();
                 return;
             }
-                // 1. ZUERST den eigenen Stein im DOM bewegen!
+            // 1. ZUERST den eigenen Stein im DOM bewegen!
         bewegeSteinDOMFunktion();
         verbleibendeZuege.splice(wuerfelIndex, 1);
         aufhebenSelektion();
 
-        // 2. JETZT VERZÖGERT PRÜFEN (Schlagen & Spielerwechsel erst nach der Animation)
+        // 2. JETZT VERZÖGERT PRÜFEN (Schlagen & Spielerwechsel nach der Animation)
         setTimeout(() => {
-        // SCHLAGEN: 1 gegnerischer Stein wandert auf die Bar
+            // SCHLAGEN: 1 gegnerischer Stein wandert auf die Bar
+            if (gegnerSteineAnzahl === 1) {
+                const geschlagenerStein = zielZacke.querySelector(`.checker.${gegnerFarbe}`);
+                if (geschlagenerStein) {
+                    // i18n-alert für das Schlagen abfeuern
+                    i18nAlert('kickedatbar_message', { 
+                        farbe: gegnerFarbe, 
+                        defaultValue: `💥 Gekickt! Der ${gegnerFarbe}e Stein wurde auf die Bar geschlagen!` 
+                    });
+
+                    // Stein von der Zacke lösen und in die richtige Bar-Zone verschieben
+                    const barZoneId = gegnerFarbe === "Weiß" ? "Bar-Weiß-Zone" : "Bar-Schwarz-Zone";
+                    const barZone = document.getElementById(barZoneId); 
+                    if (barZone) {
+                        geschlagenerStein.classList.remove('selected');
+                        barZone.appendChild(geschlagenerStein); // Physisch verschieben!
+                    }   
+                    
+                    // Counter im Hintergrund erhöhen
+                    if (gegnerFarbe === "Weiß") barWeiß++; else barSchwarz++;
+                }
+            }
+            
+            // WICHTIG: Der Spielerwechsel muss IN das Timeout, 
+            // damit er wartet, bis das Schlagen physisch beendet ist!
+            pruefeSpielerWechsel();
+            
+        }, 250); // 250 Millisekunden warten (entspricht der CSS-Animation + Puffer)
+
+    } else {
+        i18nAlert('wrongvalueingame_message', { 
+            defaultValue: `Ungültiger Zug! Keine passende Würfelzahl für ${distanz} Felder.` 
+        });
+        aufhebenSelektion();
+    }
+}
+             //verbleibendeZuege.splice(wuerfelIndex, 1);
+            // WICHTIG: Sichere die Daten des geschlagenen Steins JETZT, 
+            // bevor die Animation startet und bevor der Spieler wechselt!
+            //const wirdGeschlagen = (gegnerSteineAnzahl === 1);
+            //const geschlagenerStein = wirdGeschlagen ? zielZacke.querySelector(`.checker.${gegnerFarbe}`) : null;
+            // 
+            //
+            
+           
+
+       /* 2. JETZT VERZÖGERT PRÜFEN (Schlagen geschieht parallel/verzögert zur Animation)
+        if (wirdGeschlagen && geschlagenerStein) {
+            
+                     // Die Bar-Zone bleibt korrekt, da wir 'gegnerFarbe' oben eingefroren haben
+                const barZoneId = gegnerFarbe === "Weiß" ? "Bar-Weiß-Zone" : "Bar-Schwarz-Zone";
+                const barZone = document.getElementById(barZoneId);
+
+                if (barZone) {
+                    geschlagenerStein.classList.remove('selected');
+                    barZone.appendChild(geschlagenerStein); // Physisch auf die Bar legen
+                }
+                // Counter im Hintergrund erhöhen
+                if (gegnerFarbe === "Weiß") barWeiß++; else barSchwarz++;
+                setTimeout(() => {
+                    bewegeSteinDOMFunktion();
+                
+                // Dynamische und saubere Übersetzung für das Schlagen abfeuern
+                // Holt den Text aus der JSON (Beispiel siehe unten)
+                    i18nAlert('kickedatbar_message', { 
+                        farbe: gegnerFarbe, 
+                        defaultValue: `💥 Gekickt! Der ${gegnerFarbe}e Stein wurde auf die Bar geschlagen!` 
+                    });
+                    aufhebenSelektion();
+                    // Spielerwechsel erst aufrufen, WENN das Schlagen optisch abgeschlossen ist
+                    pruefeSpielerWechsel();
+                    }, 250);
+        }  else {
+            // müssen wir nach dem normalen Zug trotzdem den Spieler wechseln!
+            bewegeSteinDOMFunktion();
+            aufhebenSelektion();
+            pruefeSpielerWechsel();
+        }  
+    } else {
+            i18nAlert('wrongvalueingame_message', { defaultValue: `Ungültiger Zug! Keine passende Würfelzahl für ${distanz} Felder.` });
+            aufhebenSelektion();
+    }
+}
+
+            //SCHLAGEN: 1 gegnerischer Stein wandert auf die Bar
         if (gegnerSteineAnzahl === 1) {
-            const gegnerFarbe = aktiverSpielerFarbe === "weiss" ? "schwarz" : "weiss";
+            const gegnerFarbe = aktiverSpielerFarbe === "Weiß" ? "Schwarz" : "Weiß";
             const geschlagenerStein = zielZacke.querySelector(`.checker.${gegnerFarbe}`);
+            
+
+            
             if (geschlagenerStein) {
-                alert(`💥 Gekickt! Der ${gegnerFarbe}e Stein wurde auf die Bar geschlagen!`);
+                
                 // Stein von der Zacke lösen und in die richtige Bar-Zone verschieben
-                const barZoneId = gegnerFarbe === "weiss" ? "bar-weiss-zone" : "bar-schwarz-zone";
+                const barZoneId = gegnerFarbe === "Weiß" ? "Bar-Weiß-Zone" : "Bar-Schwarz-Zone";
                 const barZone = document.getElementById(barZoneId); 
+                            i18nAlert('kickedatbar_message', { 
+                farbe: gegnerFarbe, 
+                defaultValue: `💥 Gekickt! Der ${gegnerFarbe}e Stein wurde auf die Bar geschlagen!` 
+                });
+                //i18nAlert('kickedatbar_message',{defaultValue:`💥 Gekickt! Der ${gegnerFarbe}e Stein wurde auf die Bar geschlagen!`});
                 if (barZone) {
                     // Auswahl-Klasse zur Sicherheit entfernen, falls er markiert war
                     geschlagenerStein.classList.remove('selected');
                     barZone.appendChild(geschlagenerStein); // Physisch verschieben!
                 }   
                 // Counter im Hintergrund erhöhen
-                if (gegnerFarbe === "weiss") barWeiss++;
+                if (gegnerFarbe === "Weiß") barWeiß++;
                 else barSchwarz++;
             }
         }
-            // Physischen Stein im DOM verschieben
-          }, 250); // 250 Millisekunden warten (entspricht der CSS-Animation + Puffer)
+        // 3. STEIN PHYSISCH BEWEGEN (Egal ob Schlagen oder normaler Zug!)
+        bewegeSteinDOMFunktion();
+        aufhebenSelektion();
+        verbleibendeZuege.splice(wuerfelIndex, 1);
+        
+        setTimeout(() => {
             pruefeSpielerWechsel();
+          }, 250); // 250 Millisekunden warten (entspricht der CSS-Animation + Puffer)
+            
         } else {
-            alert(`Ungültiger Zug! Keine passende Würfelzahl für ${distanz} Felder.`);
+            i18nAlert('wrongvalueingame_message',{defaultValue:`Ungültiger Zug! Keine passende Würfelzahl für ${distanz} Felder.`});
             aufhebenSelektion();
         }
     }
-
+*/
 export function aufhebenSelektion() 
         {document.querySelectorAll('.checker.selected').forEach(stein => {stein.classList.remove('selected');});
 		ausgewaehlteZacke = null;}
 	// --- BACKGAMMON SPIELSTEINE-STARTAUFSTELLUNG INIZIALISIEREN ---
-	const startAufstellung = {1:  { spieler: 'weiss', anzahl: 2 },
-    	6:  { spieler: 'schwarz', anzahl: 5 },
-		8:  { spieler: 'schwarz', anzahl: 3 },
-		12: { spieler: 'weiss', anzahl: 5 } ,
-		13: { spieler: 'schwarz', anzahl: 5 },
-		17: { spieler: 'weiss', anzahl: 3 },
-		19: { spieler: 'weiss', anzahl: 5 },
-		24: { spieler: 'schwarz', anzahl: 2 }};
+	const startAufstellung = {1:  { spieler: 'Weiß', anzahl: 2 },
+    	6:  { spieler: 'Schwarz', anzahl: 5 },
+		8:  { spieler: 'Schwarz', anzahl: 3 },
+		12: { spieler: 'Weiß', anzahl: 5 } ,
+		13: { spieler: 'Schwarz', anzahl: 5 },
+		17: { spieler: 'Weiß', anzahl: 3 },
+		19: { spieler: 'Weiß', anzahl: 5 },
+		24: { spieler: 'Schwarz', anzahl: 2 }};
 export function platziereStartSteine() {document.querySelectorAll('.point').forEach(zacke => {zacke.innerHTML = '';});
 		for (const zackeId in startAufstellung) {const zackeInfo = startAufstellung[zackeId];
 			const zackeElement = document.querySelector(`.point[data-point="${zackeId}"]`);
@@ -357,20 +472,24 @@ export function pruefeSpielerWechsel() {
             const name1 = spieler1Input ? spieler1Input.value.trim() || "Spieler 1" : "Spieler 1";
             const name2 = spieler2Input ? spieler2Input.value.trim() || "Spieler 2" : "Spieler 2";
 
-            if (aktiverSpielerFarbe === "weiss") {
-                aktiverSpielerFarbe = "schwarz";
+            if (aktiverSpielerFarbe === "Weiß") {
+                aktiverSpielerFarbe = "Schwarz";
                 if (anzeigeSpieler) anzeigeSpieler.textContent = name2 + " (Schwarz)";
             } else {
-                aktiverSpielerFarbe = "weiss";
+                aktiverSpielerFarbe = "Weiß";
                 if (anzeigeSpieler) anzeigeSpieler.textContent = name1 + " (Weiß)";
             }
-            alert(`Spielerwechsel! ${aktiverSpielerFarbe === "weiss" ? name1 : name2} ist am Zug.`);
+            i18nAlert('changeplayer_message', {
+                defaultValue: 'Spielerwechsel! {{playerName}} ist am Zug.',
+                playerName: aktiverSpielerFarbe === "Weiß" ? name1 : name2
+            });
+            //i18nAlert('changeplayer_message',{defaultValue:`Spielerwechsel! ${aktiverSpielerFarbe === "Weiß" ? name1 : name2} ist am Zug.`});
         }
     }
 export function darfAusspielen(spielerFarbe) {
     // Wenn noch Steine auf der Bar liegen, darf man nicht ausspielen!
-    if (spielerFarbe === "weiss" && barWeiss > 0) return false;
-    if (spielerFarbe === "schwarz" && barSchwarz > 0) return false;
+    if (spielerFarbe === "Weiß" && barWeiß > 0) return false;
+    if (spielerFarbe === "Schwarz" && barSchwarz > 0) return false;
 
     // Alle Points auf dem Brett durchsuchen
     const allePoints = document.querySelectorAll('.point');
@@ -380,7 +499,7 @@ export function darfAusspielen(spielerFarbe) {
         const punktId = parseInt(zacke.getAttribute('data-point'));
         const steineDesSpielers = zacke.querySelectorAll(`.checker.${spielerFarbe}`).length;
 
-        if (spielerFarbe === "weiss") {
+        if (spielerFarbe === "Weiß") {
             // Weiß darf NUR noch auf den Feldern 19-24 Steine haben. 
             // Also zählen wir alle Steine auf den Feldern 1 bis 18:
             if (punktId <= 18) steineAuserhalb += steineDesSpielers;
@@ -424,7 +543,7 @@ export function aktualisiereHighscoreAnzeige() {
         li.innerHTML = `
             <strong style="color: #333;">${eintrag.name}</strong> 
             <span style="font-size: 0.85em; color: #666;">
-                (${eintrag.farbe}) - ${eintrag.datum}
+                (${farbuebersetzungen}) - ${eintrag.datum}
             </span>
         `;
         

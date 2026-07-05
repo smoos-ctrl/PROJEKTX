@@ -102,6 +102,63 @@ list-style: none;
     border-radius: 0.5em;
     cursor: pointer;
 }
+/* Container-Verhalten definieren */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  font-family: sans-serif;
+}
+
+/* Der Haupt-Button */
+.dropdown-btn {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.dropdown-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #888;
+}
+/* Die versteckte Liste */
+.dropdown-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  padding: 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: none; /* Standardmäßig unsichtbar */
+  z-index: 1000;
+  min-width: 120px;
+}
+.dropdown-list.show{
+  display: block;
+}
+
+/* Die einzelnen Sprachen in der liste */
+.dropdown-list li {
+  padding: 10px 16px;
+  font-size: 14 px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0; /* Hover-Effekt für die  Zeilen */
+  color: #0070f3
+}
+
+/* Klasse, die per JS hinzugefügt wird, um die Liste anzuzeigen */
 /* Hamburger Menü-Button standardmäßig ausblenden */
 #menuButtonMain {
   display: none;
@@ -338,7 +395,7 @@ background-color:bisque;
 
 #highscore-liste li {
     font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 2px rgba(109, 54, 54, 0.3);
 }
 /* ==========================================
    GRUNDSTYLING FOOTER (METALLIC-GLANZ)

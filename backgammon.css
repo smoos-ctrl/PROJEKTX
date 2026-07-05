@@ -85,6 +85,7 @@
 }
 /* 6. Das native Dialog-Fenster (Anleitung) stylen */
 #rules-modal {
+    position: flex;
     border: none;
     border-radius: 12px;
     padding: 25px;
@@ -222,6 +223,42 @@
     box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
     z-index: 10; /* Über den Zacken liegend */
 }
+/* --- LAYOUT FÜR DIE INNEREN BAR-ZONEN ERGÄNZEN --- */
+.bar {
+    /* Dein bestehendes Layout bleibt, wir fügen Flexbox für die Zonen hinzu: */
+    display: flex;
+    flex-direction: column; /* Teilt die Bar in eine obere und untere Hälfte */
+}
+
+/* Obere Hälfte für die geschlagenen weißen Steine */
+#Bar-Weiß-Zone {
+    width: 100%;
+    height: 50%; /* Nutzt die obere Hälfte der Bar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Stapelt geschlagene Steine von oben nach unten */
+    padding-top: 10px;
+    box-sizing: border-box;
+}
+
+/* Untere Hälfte für die geschlagenen schwarzen Steine */
+#Bar-Schwarz-Zone {
+    width: 100%;
+    height: 50%; /* Nutzt die untere Hälfte der Bar */
+    display: flex;
+    flex-direction: column-reverse; /* Stapelt geschlagene Steine von unten nach oben */
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Damit die Steine auf der Bar nicht verzerrt werden */
+.bar .checker {
+    margin: 2px 0; /* Leichtes Padding zwischen den Steinen auf der Bar */
+    transform: scale(0.9); /* Macht Steine auf der Bar optional minimal kleiner, damit sie gut passen */
+}
 /* 6. Das Aussehen der runden Spielfiguren */
 .checker {
     width: 34px;
@@ -234,12 +271,12 @@
     transition: transform 0.1s;
 }
 /* Farbe: Weißer Spieler (Creme) */
-.checker.weiss {
+.checker.Weiß {
     background: #f7f5f0;
     border: 1px solid #d1cdc4;
 }
 /* Farbe: Schwarzer Spieler (Anthrazit) */
-.checker.schwarz {
+.checker.Schwarz {
     background: #2b2b2b;
     border: 1px solid #141414;
 }

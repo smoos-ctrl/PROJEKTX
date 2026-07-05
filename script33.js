@@ -1,3 +1,88 @@
+let uebersetzungen = {}; // Hier landen die JSON-Daten
+export let aktuelleSprache = "de"; // Standard
+
+// 1. Funktion, die die passende JSON-Datei vom Server lädt
+export async function ladeSprache(sprache) {
+  try {
+    const response = await fetch(`lang/${sprache}.json`);
+    if (!response.ok) throw new Error("Datei lang/${sprache}.json nicht gefunden`");
+    uebersetzungen = await response.json();
+    aktuelleSprache = sprache;
+
+    //findet alle HTML-ELemente mit`data-i18n` und ersetzt den Text
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.getAttribute("data-i18n");
+        if (uebersetzungen[key]) {
+            element.textContent = uebersetzungen[key];
+        };
+    });
+
+    //merkt sich die Sprache für den nächsten Besuch
+    localStorage.setItem("preferredLanguage", sprache);
+
+    // Ändert den Text auf dem Haupt-Button (z.B. von "DE" zu "EN")
+    const btn = document.getElementById("current-lang-btn");
+    if (btn) btn.textContent = sprache.toUpperCase();
+
+    console.log(`Sprachdatei [${sprache}] erfolgreich geladen und UI übersetzt, sofern entsprechende Daten im Json-Format vorhanden sind.`);
+  } catch (error) {
+    console.error("Fehler beim Laden der JSON-Datei:", error);
+  }
+}
+
+// 2. Die magische t-Funktion, die vgefehlt hat!
+export function t(key, data = {}) {
+  // Holt den Text aus der JSON. Falls nicht vorhanden, zeige den Key als Fallback
+  let text = uebersetzungen[key] || key;
+  
+  // Ersetzt Platzhalter wie {{name}} mit echten Daten
+  Object.keys(data).forEach(dataKey => {
+    text = text.replace(`{{${dataKey}}}`, data[dataKey]);
+  });
+  
+  return text;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    //sprachauswahl
+    const dropdownBtn = document.getElementById("current-lang-btn");
+    const langList = document.getElementById("lang-list");
+
+    if (!dropdownBtn || !langList) return; // Sicherheit, falls Elemente fehlen
+
+    //1.  Dropdown öffnen und schließen bei Klick auf den Button
+    dropdownBtn.addEventListener("click", () => {
+        const isExpanded = dropdownBtn.getAttribute("aria-expanded") === "true";
+        dropdownBtn.setAttribute("aria-expanded", !isExpanded);
+        langList.classList.toggle("show");
+    });
+    // 2. Klick auf eine Sprache in der Liste
+    langList.querySelectorAll("li").forEach(item => {
+        item.addEventListener("click", (event) => {
+            const selectedLang = event.target.getAttribute("data-lang");
+
+            // Sprache ändern (Nutzt die fetch-Funktion aus der vorherigen Nachricht)
+            ladeSprache(selectedLang);
+
+            //Button-Text auf das neue Kürzel (z.b. "EN") updaten
+            dropdownBtn.textContent = selectedLang.toUpperCase();
+          
+            //Dropdown wieder schließen
+            langList.classList.remove("show");
+            dropdownBtn.setAttribute("aria-expanded","false");
+        });
+    });
+    // 3. Schließen, wenn man irgendwo anderst auf die Seite klickt
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest(".custom-dropdown")) {
+            langList.classList.remove("show");
+            dropdownBtn.setAttribute("aria-expanded","false");
+        }
+    });
+        // 4. Beim Start: Gespeicherte Sprache laden oder Fallback auf Deutsch
+    const gespeicherteSprache = localStorage.getItem("preferredLanguage") || "de";
+    ladeSprache(gespeicherteSprache);
+});
 //seite vorlesen 
 export function ganzeSeiteVorlesen() {
     window.speechSynthesis.cancel();
@@ -69,6 +154,8 @@ const ziel = link.getAttribute("href");
     switchPage(ziel); 
     });
 });
+
+
 export function switchPage(zielId) {
     if (!zielId) return;
     
@@ -126,10 +213,10 @@ if (zweiButton && gradeSelect) {
         //const selectElement = document.getElementById('grade anzeige');
             const options1 = ['Sehr gut','Gut','Befriedigend','Ausreichend','Mangelhaft','Ungenügend','out of order'];
             for(let i=0; i<options1.length; i++) {
-               const optionElement =document.createElement('option');
+               const optionElement = document.createElement('option');
         // OPTIONAL ABER EMPFOHLEN: Jeder Option einen Wert (value) zuweisen
                 optionElement.value = options1[i];
-                const optionText =document.createTextNode(options1[i]);
+                const optionText = document.createTextNode(options1[i]);
                 optionElement.appendChild(optionText);
                 gradeSelect.appendChild(optionElement);
               }   
@@ -141,6 +228,28 @@ if (zweiButton && gradeSelect) {
         } 
     })
 };
+
+gradeSelect.addEventListener("change", async (e) => {
+    const text = document.getElementById("eingabename").value;
+    const note = e.target.value;
+
+    if (!text || !note) return;
+
+    const msgBuffer = new TextEncoder().encode(text + note);
+    const hashBuffer = await crypto.subtle.digest("SHA-512", msgBuffer); //64 bytes / 512 bit
+
+    //in Byte-Arry (Uint8Array) umwandeln
+    const fullByteArray = new Uint8Array(hashBuffer);
+    // TRUNCATION (abschneiden): Nur die ersten 32 Bytes nehmen (32 Bytes = 256 Bit)
+    const truncatedArray = fullByteArray.slice(0,32);
+    
+    const hashHex = Array.from(truncatedArray)
+         .map(b => b.toString(16).padStart(2, "0")).join("");
+
+    localStorage.setItem("savedHash", hashHex);
+    console.log("Hash gespeichert", hashHex);
+});
+
 //leistungen -siehe function umschalten(id)
 // Moderner Ansatz: Event-Listener statt 'onclick' im HTML
 document.addEventListener('DOMContentLoaded', () => {

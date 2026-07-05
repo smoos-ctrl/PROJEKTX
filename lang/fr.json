@@ -1,0 +1,5 @@
+{
+  "startwinname_message": "{{name}} remporte le tirage au sort initial et commence (Couleur : Blanc) !",
+  "samedice_message": "Égalité ! Veuillez relancer.",
+  "makemove_message": "Vous devez jouer vos coups en premier !"
+}
