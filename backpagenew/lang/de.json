@@ -1,0 +1,35 @@
+ {
+  "--- TEXTE AUS DER HAUPT-DATEI (MENÜ, BUTTONS) ---": "",
+  "current_lang": "DE",
+
+
+  "--- TEXTE AUS DER BACKGAMMON-LOGIK (SPIEL) ---": "",
+  "inputname_message":"Bitte geben Sie die Namen beider Spieler ein!",
+  "allstonesinside1_message":"Du musst erst ALLE deine Steine in dein Heimfeld bringen!",
+  "stoneout_message":"Ein ${aktiverSpielerFarbe}er Stein wurde ausgespielt!",
+  "winnergame_message":"🏆 Herzlichen Glückwunsch! ${sieger} WEIß hat das Spiel gewonnen!",
+  "winnergame2_message":"🏆 Herzlichen Glückwunsch! ${sieger}  SCHWARZ hat das Spiel gewonnen!",
+  "wrongvalueout_message":"Du hast keinen passenden Würfel, um einen Stein von Feld ${vonId} herauszuspielen (benötigt: ${benoetigteAugen}).",
+  "changeplayer_message":"Spielerwechsel! {{playerName}} ist am Zug.",
+  "":"",
+  "":"",
+  "":"",
+
+
+  "startwinname_message": "{{name}} gewinnt den Startwurf und beginnt (Farbe: Weiß)!",
+  "samedice_message": "Gleichstand! Bitte noch einmal würfeln.",
+  "makemove_message": "Du musst erst deine Züge machen!",
+  "blockedpoint_message": "Dieser Point ist vom Gegner blockiert!",
+  "wrongvalueingame_message": "Ungültiger Zug! Keine passende Würfelzahl für diese Felder.",
+  "kickedatbar_message": "💥 Gekickt! Der {{farbe}}e Stein wurde auf die Bar geschlagen!",
+ 
+  
+  "roll_dice_btn": "Würfeln",
+  "rolldice1_message": "Bitte zuerst würfeln!",
+  "notyourstone_message": "Das ist nicht dein Stein!",
+  "wrongdirection_message": "Falsche Richtung! Du musst dich vorwärts bewegen.",
+  "blocked_message": "Dieses Einstiegsfeld ist vom Gegner blockiert!",
+  "kickedoutagain_message": "💥 Direkt beim Einstieg gekickt! Der {{farbe}}e Stein muss auf die Bar!",
+  "backingame_message": "Stein erfolgreich von der Bar ins Feld {{zuId}} eingesetzt!",
+  "noentry_message": "Ungültiger Einstieg! Du kannst mit deinen Würfeln [{{wuerfel}}] nicht auf Feld {{zuId}} einsteigen."
+}
