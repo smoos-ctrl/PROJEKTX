@@ -1,0 +1,28 @@
+{
+  "--- TEXT in script33.js (MENÜ, BUTTONS, etc.) ---": "",
+  "current_lang": "EN",
+
+  "--- TEXT in backgammon.js (MENÜ, BUTTONS, etc.) ---": "",
+  "changeplayer_message": "Player change! It is {{playerName}}'s turn.",
+  
+  
+  
+  
+  "startwinname_message": "{{name}} wins the opening roll and starts (Color: White)!",
+  "samedice_message": "Tie! Please roll again.",
+  "makemove_message": "You must make your moves first!",
+  "blockedpoint_message": "This point is blocked by the opponent!",
+  "wrongvalueingame_message": "Invalid move! No matching dice value for these spaces.",
+  "kickedatbar_message": "💥 Kicked! The {{farbe}} checker was sent to the bar!",
+
+  
+  "roll_dice_btn": "Roll Dice",
+  "rolldice1_message": "Please roll the dice first!",
+  "notyourstone_message": "That is not your checker!",
+  "wrongdirection_message": "Wrong direction! You must move forward.",
+  "blocked_message": "This entry point is blocked by the opponent!",
+  "kickedoutagain_message": "💥 Kicked right at entry! The {{farbe}} checker goes to the bar!",
+  "backingame_message": "Checker successfully entered from the bar into space {{zuId}}!",
+  "noentry_message": "Invalid entry! You cannot enter space {{zuId}} with your dice [{{wuerfel}}]."
+
+}

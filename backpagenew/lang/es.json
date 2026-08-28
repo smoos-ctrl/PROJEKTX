@@ -1,0 +1,5 @@
+{
+  "startwinname_message": "¡{{name}} gana la tirada inicial y empieza (Color: Blanco)!",
+  "samedice_message": "¡Empate! Por favor, vuelve a lanzar.",
+  "makemove_message": "¡Debes hacer tus movimientos primero!"
+}
