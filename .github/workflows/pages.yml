@@ -19,6 +19,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -29,11 +34,19 @@ jobs:
 
       - name: Statische Website vorbereiten
         run: |
+          rm -rf _site
           mkdir -p _site
-          cp -r ./*.html ./*.css ./*.js ./*.webp ./*.png ./*.jpg _site/ 2>/dev/null || true
+
+          cp index.html _site/
+          cp style.css _site/
           cp -r backgammon _site/ 2>/dev/null || true
           cp -r backgpage _site/ 2>/dev/null || true
           cp -r lang _site/ 2>/dev/null || true
+          cp *.js _site/ 2>/dev/null || true
+          cp *.webp _site/ 2>/dev/null || true
+          cp *.png _site/ 2>/dev/null || true
+          cp *.jpg _site/ 2>/dev/null || true
+
           touch _site/.nojekyll
 
       - name: GitHub Pages konfigurieren
