@@ -1,9 +1,9 @@
-name: Deploy static site to GitHub Pages
+name: Deploy static website
 
 on:
   push:
     branches:
-      - main # anpassen, falls dein Branch anders heißt
+      - backgammonhomepagefinaleditnojekyll
   workflow_dispatch:
 
 permissions:
@@ -24,23 +24,26 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout
+      - name: Repository auschecken
         uses: actions/checkout@v4
 
-      - name: Prepare static files
+      - name: Statische Website vorbereiten
         run: |
           mkdir -p _site
-          cp -r index.html assets _site/ 2>/dev/null || true
+          cp -r ./*.html ./*.css ./*.js ./*.webp ./*.png ./*.jpg _site/ 2>/dev/null || true
+          cp -r backgammon _site/ 2>/dev/null || true
+          cp -r backgpage _site/ 2>/dev/null || true
+          cp -r lang _site/ 2>/dev/null || true
           touch _site/.nojekyll
 
-      - name: Configure Pages
+      - name: GitHub Pages konfigurieren
         uses: actions/configure-pages@v5
 
-      - name: Upload static artifact
+      - name: Dateien hochladen
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
 
-      - name: Deploy to GitHub Pages
+      - name: Website veröffentlichen
         id: deployment
         uses: actions/deploy-pages@v4
