@@ -479,6 +479,12 @@ export class SpielLogik {
           // Würfel abziehen und Auswahl säubern
           this.verbleibendeZuege.splice(wuerfelIndex, 1);
           this.aufhebenSelektion(this);
+          const aktiveSprache =
+             (window.i18n && window.i18n.aktuelleSprache) || "de";
+
+          const uebersetzteFarbe =
+              farbuebersetzungen[this.aktiverSpielerFarbe]?.[aktiveSprache] ??
+              this.aktiverSpielerFarbe;
           i18nAlert("alerts.stoneout_message", {
             farbe :uebersetzteFarbe,
           });
