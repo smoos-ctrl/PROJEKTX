@@ -51,8 +51,8 @@ export function initialisiereSpielstartKnoepfe() {
         brett.classList.add("aktiv"); 
       }
 
-      // 4. Jetzt die Logik initialisieren (jetzt knallt es nicht mehr und läuft sauber durch!)
-      spiel = new SpielLogik(spieler1, spieler2);
+      // 4. Jetzt die Logik initialisieren (nur einmal und es läuft sauber durch!)
+      spiel ??= new SpielLogik(spieler1, spieler2);
     });
   } else {
     console.warn("Spielstart-Buttons oder Inputs wurden im HTML nicht gefunden!");
