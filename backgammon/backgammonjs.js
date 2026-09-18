@@ -603,13 +603,15 @@ export class SpielLogik {
 
       const aktuellerName = this.aktiverSpielerFarbe === "Weiß" ? name1 : name2;
       //Ermittle die aktive Sprache
-      const aktiveSprache = (window.i18n && window.i18n.aktuelleSprache) || "de";
-      //Übersetze das (Weiß) oder (Schwarz) dynamisch für die UI
-      const uebersetzteFarbe = (typeof farbuebersetzungen !== "undefined" && farbuebersetzungen[this.aktiverSpielerFarbe])
-        ? (farbuebersetzungen[this.aktiverSpielerFarbe][aktiveSprache] || this.aktiverSpielerFarbe)
-        : this.aktiverSpielerFarbe;
-      const farbZusatz =` (${uebersetzteFarbe})`;
+      const aktiveSprache =
+        (window.i18n && window.i18n.aktuelleSprache) || "de";
 
+      const uebersetzteFarbe =
+          farbuebersetzungen[this.aktiverSpielerFarbe]?.[aktiveSprache] ??
+          this.aktiverSpielerFarbe;
+
+      const farbZusatz = ` (${uebersetzteFarbe})`;
+    
       // Sicherheits-Check: Falls das Element im DOM neu generiert wurde, frisch holen
       if (!this.anzeigeSpieler) {
         this.anzeigeSpieler = document.getElementById("aktueller-spieler");
@@ -658,9 +660,13 @@ export function aktualisiereHighscoreAnzeige() {
   // Jeden Namen aus dem Array als Listeneintrag hinzufügen
   liste.forEach((eintrag) => {
     const li = document.createElement("li");
-    const uebersetzteFarbe = (typeof farbuebersetzungen !== "undefined" && farbuebersetzungen[eintrag.farbe])
-      ? (farbuebersetzungen[eintrag.farbe][aktiveSprache] || eintrag.farbe)
-      : eintrag.farbe;
+     
+    const aktiveSprache =
+     (window.i18n && window.i18n.aktuelleSprache) || "de";
+
+    const uebersetzteFarbe =
+     farbuebersetzungen[eintrag.farbe]?.[aktiveSprache] ??
+     eintrag.farbe;
 
     // Da 'eintrag' jetzt ein Objekt ist, greifen wir gezielt auf .name, .farbe und .datum zu!
     li.innerHTML = `
